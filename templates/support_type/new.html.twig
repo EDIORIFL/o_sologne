@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New SupportType{% endblock %}
+
+{% block body %}
+    <h1>Create new SupportType</h1>
+
+    {{ include('support_type/_form.html.twig') }}
+
+    <a href="{{ path('support_type_index') }}">back to list</a>
+{% endblock %}

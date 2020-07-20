@@ -19,5 +19,8 @@
     "version": "1.0.0",
     "main": "index.js",
     "repository": "git@github.com:MaistrePedro/o_sologne.git",
-    "author": "Pedro <peterpendrag@gmail.com>"
+    "author": "Pedro <peterpendrag@gmail.com>",
+    "dependencies": {
+        "bootstrap": "^4.5.0"
+    }
 }

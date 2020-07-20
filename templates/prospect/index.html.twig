@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Prospect index{% endblock %}
+
+{% block body %}
+    <h1>Prospect index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Idaccount</th>
+                <th>Idactivityarea</th>
+                <th>Idprospectstatus</th>
+                <th>Name</th>
+                <th>Manager</th>
+                <th>Address</th>
+                <th>Siret</th>
+                <th>Telephone</th>
+                <th>Mobile</th>
+                <th>Email</th>
+                <th>Comment</th>
+                <th>Iscustomer</th>
+                <th>Isrefused</th>
+                <th>Datecreated</th>
+                <th>Datestatus</th>
+                <th>Isactive</th>
+                <th>Iseditable</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for prospect in prospects %}
+            <tr>
+                <td>{{ prospect.id }}</td>
+                <td>{{ prospect.idaccount }}</td>
+                <td>{{ prospect.idactivityarea }}</td>
+                <td>{{ prospect.idprospectstatus }}</td>
+                <td>{{ prospect.name }}</td>
+                <td>{{ prospect.manager }}</td>
+                <td>{{ prospect.address }}</td>
+                <td>{{ prospect.siret }}</td>
+                <td>{{ prospect.telephone }}</td>
+                <td>{{ prospect.mobile }}</td>
+                <td>{{ prospect.email }}</td>
+                <td>{{ prospect.comment }}</td>
+                <td>{{ prospect.iscustomer ? 'Yes' : 'No' }}</td>
+                <td>{{ prospect.isrefused ? 'Yes' : 'No' }}</td>
+                <td>{{ prospect.datecreated ? prospect.datecreated|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ prospect.datestatus ? prospect.datestatus|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ prospect.isactive ? 'Yes' : 'No' }}</td>
+                <td>{{ prospect.iseditable ? 'Yes' : 'No' }}</td>
+                <td>{{ prospect.createdat ? prospect.createdat|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ prospect.updatedat ? prospect.updatedat|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('prospect_show', {'id': prospect.id}) }}">show</a>
+                    <a href="{{ path('prospect_edit', {'id': prospect.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="21">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('prospect_new') }}">Create new</a>
+{% endblock %}

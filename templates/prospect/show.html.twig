@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Prospect{% endblock %}
+
+{% block body %}
+    <h1>Prospect</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ prospect.id }}</td>
+            </tr>
+            <tr>
+                <th>Idaccount</th>
+                <td>{{ prospect.idaccount }}</td>
+            </tr>
+            <tr>
+                <th>Idactivityarea</th>
+                <td>{{ prospect.idactivityarea }}</td>
+            </tr>
+            <tr>
+                <th>Idprospectstatus</th>
+                <td>{{ prospect.idprospectstatus }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ prospect.name }}</td>
+            </tr>
+            <tr>
+                <th>Manager</th>
+                <td>{{ prospect.manager }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ prospect.address }}</td>
+            </tr>
+            <tr>
+                <th>Siret</th>
+                <td>{{ prospect.siret }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ prospect.telephone }}</td>
+            </tr>
+            <tr>
+                <th>Mobile</th>
+                <td>{{ prospect.mobile }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ prospect.email }}</td>
+            </tr>
+            <tr>
+                <th>Comment</th>
+                <td>{{ prospect.comment }}</td>
+            </tr>
+            <tr>
+                <th>Iscustomer</th>
+                <td>{{ prospect.iscustomer ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Isrefused</th>
+                <td>{{ prospect.isrefused ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Datecreated</th>
+                <td>{{ prospect.datecreated ? prospect.datecreated|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Datestatus</th>
+                <td>{{ prospect.datestatus ? prospect.datestatus|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Isactive</th>
+                <td>{{ prospect.isactive ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Iseditable</th>
+                <td>{{ prospect.iseditable ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ prospect.createdat ? prospect.createdat|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ prospect.updatedat ? prospect.updatedat|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('prospect_index') }}">back to list</a>
+
+    <a href="{{ path('prospect_edit', {'id': prospect.id}) }}">edit</a>
+
+    {{ include('prospect/_delete_form.html.twig') }}
+{% endblock %}

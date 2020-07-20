@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New ProspectStatus{% endblock %}
+
+{% block body %}
+    <h1>Create new ProspectStatus</h1>
+
+    {{ include('prospect_status/_form.html.twig') }}
+
+    <a href="{{ path('prospect_status_index') }}">back to list</a>
+{% endblock %}

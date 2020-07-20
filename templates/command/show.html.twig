@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Command{% endblock %}
+
+{% block body %}
+    <h1>Command</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ command.id }}</td>
+            </tr>
+            <tr>
+                <th>Idprospect</th>
+                <td>{{ command.idprospect }}</td>
+            </tr>
+            <tr>
+                <th>Idsupport</th>
+                <td>{{ command.idsupport }}</td>
+            </tr>
+            <tr>
+                <th>Datesigned</th>
+                <td>{{ command.datesigned ? command.datesigned|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Turnover</th>
+                <td>{{ command.turnover }}</td>
+            </tr>
+            <tr>
+                <th>Rib</th>
+                <td>{{ command.rib }}</td>
+            </tr>
+            <tr>
+                <th>Paymentmode</th>
+                <td>{{ command.paymentmode }}</td>
+            </tr>
+            <tr>
+                <th>Payment</th>
+                <td>{{ command.payment }}</td>
+            </tr>
+            <tr>
+                <th>Ismockfile</th>
+                <td>{{ command.ismockfile ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Insertsize</th>
+                <td>{{ command.insertsize }}</td>
+            </tr>
+            <tr>
+                <th>Isactive</th>
+                <td>{{ command.isactive ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Iseditable</th>
+                <td>{{ command.iseditable ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ command.createdat ? command.createdat|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ command.updatedat ? command.updatedat|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('command_index') }}">back to list</a>
+
+    <a href="{{ path('command_edit', {'id': command.id}) }}">edit</a>
+
+    {{ include('command/_delete_form.html.twig') }}
+{% endblock %}

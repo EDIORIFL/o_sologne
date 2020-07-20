@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProspectStatus{% endblock %}
+
+{% block body %}
+    <h1>ProspectStatus</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ prospect_status.id }}</td>
+            </tr>
+            <tr>
+                <th>Label</th>
+                <td>{{ prospect_status.label }}</td>
+            </tr>
+            <tr>
+                <th>Isactive</th>
+                <td>{{ prospect_status.isactive ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Iseditable</th>
+                <td>{{ prospect_status.iseditable ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ prospect_status.createdat ? prospect_status.createdat|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ prospect_status.updatedat ? prospect_status.updatedat|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('prospect_status_index') }}">back to list</a>
+
+    <a href="{{ path('prospect_status_edit', {'id': prospect_status.id}) }}">edit</a>
+
+    {{ include('prospect_status/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Command index{% endblock %}
+
+{% block body %}
+    <h1>Command index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Idprospect</th>
+                <th>Idsupport</th>
+                <th>Datesigned</th>
+                <th>Turnover</th>
+                <th>Rib</th>
+                <th>Paymentmode</th>
+                <th>Payment</th>
+                <th>Ismockfile</th>
+                <th>Insertsize</th>
+                <th>Isactive</th>
+                <th>Iseditable</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for command in commands %}
+            <tr>
+                <td>{{ command.id }}</td>
+                <td>{{ command.idprospect }}</td>
+                <td>{{ command.idsupport }}</td>
+                <td>{{ command.datesigned ? command.datesigned|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ command.turnover }}</td>
+                <td>{{ command.rib }}</td>
+                <td>{{ command.paymentmode }}</td>
+                <td>{{ command.payment }}</td>
+                <td>{{ command.ismockfile ? 'Yes' : 'No' }}</td>
+                <td>{{ command.insertsize }}</td>
+                <td>{{ command.isactive ? 'Yes' : 'No' }}</td>
+                <td>{{ command.iseditable ? 'Yes' : 'No' }}</td>
+                <td>{{ command.createdat ? command.createdat|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ command.updatedat ? command.updatedat|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('command_show', {'id': command.id}) }}">show</a>
+                    <a href="{{ path('command_edit', {'id': command.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="15">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('command_new') }}">Create new</a>
+{% endblock %}
