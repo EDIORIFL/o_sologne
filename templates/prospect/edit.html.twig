@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Prospect{% endblock %}
+{% block title %}Editer {{ prospect.name }}{% endblock %}
 
 {% block body %}
-    <h1>Edit Prospect</h1>
+    <h1>Editer {{ prospect.name }}</h1>
 
     {{ include('prospect/_form.html.twig', {'button_label': 'Update'}) }}
 

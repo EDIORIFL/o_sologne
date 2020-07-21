@@ -1,3 +1,21 @@
-@import '~bootstrap/scss/bootstrap.scss';
+@import '_vars';
+@import '~bootstrap/scss/bootstrap';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import "~@fortawesome/fontawesome-free/scss/solid";
+@import 'login';
+@import 'navbar';
+@import 'show';
 
+body {
+    overflow-x: hidden;
+}
 
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+    .content {
+        padding: 0 15px;
+    }
+}

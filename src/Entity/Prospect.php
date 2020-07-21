@@ -315,24 +315,24 @@ class Prospect
         return $this;
     }
 
-    public function getDatecreated(): ?\DateTimeInterface
+    public function getDatecreated(): ?\DateTime
     {
         return $this->datecreated;
     }
 
-    public function setDatecreated(?\DateTimeInterface $datecreated): self
+    public function setDatecreated(?\DateTime $datecreated): self
     {
         $this->datecreated = $datecreated;
 
         return $this;
     }
 
-    public function getDatestatus(): ?\DateTimeInterface
+    public function getDatestatus(): ?\DateTime
     {
         return $this->datestatus;
     }
 
-    public function setDatestatus(?\DateTimeInterface $datestatus): self
+    public function setDatestatus(?\DateTime $datestatus): self
     {
         $this->datestatus = $datestatus;
 
@@ -363,24 +363,24 @@ class Prospect
         return $this;
     }
 
-    public function getCreatedat(): ?\DateTimeInterface
+    public function getCreatedat(): ?\DateTime
     {
-        return $this->createdat;
+        return new \DateTime($this->createdat);
     }
 
-    public function setCreatedat(\DateTimeInterface $createdat): self
+    public function setCreatedat(\DateTime $createdat): self
     {
         $this->createdat = $createdat;
 
         return $this;
     }
 
-    public function getUpdatedat(): ?\DateTimeInterface
+    public function getUpdatedat(): ?\DateTime
     {
-        return $this->updatedat;
+        return new \DateTime($this->updatedat);
     }
 
-    public function setUpdatedat(\DateTimeInterface $updatedat): self
+    public function setUpdatedat(\DateTime $updatedat): self
     {
         $this->updatedat = $updatedat;
 

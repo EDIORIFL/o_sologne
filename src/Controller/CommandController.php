@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Command;
 use App\Form\CommandType;
 use App\Repository\CommandRepository;
+use App\Repository\ProspectRepository;
+use App\Repository\SupportRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,10 +20,18 @@ class CommandController extends AbstractController
     /**
      * @Route("/", name="command_index", methods={"GET"})
      */
-    public function index(CommandRepository $commandRepository): Response
+    public function index(
+        CommandRepository $commandRepository,
+        ProspectRepository $prospectRepository,
+        SupportRepository $supportRepository
+        ): Response
     {
+        $commands = $commandRepository->findAll();
+        foreach ($commands as $command) {
+            
+        }
         return $this->render('command/index.html.twig', [
-            'commands' => $commandRepository->findAll(),
+            'commands' => $commands,
         ]);
     }
 
@@ -51,7 +61,11 @@ class CommandController extends AbstractController
     /**
      * @Route("/{id}", name="command_show", methods={"GET"})
      */
-    public function show(Command $command): Response
+    public function show(
+        Command $command,
+        ProspectRepository $prospectRepository,
+        SupportRepository $supportRepository
+        ): Response
     {
         return $this->render('command/show.html.twig', [
             'command' => $command,

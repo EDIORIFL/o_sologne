@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
+use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -22,12 +23,13 @@ class AppFixtures extends Fixture
         $user
             ->setLogin('admin')
             ->setName('Admin')
-            ->setRoles(['ROLE_SUPERADMIN'])
+            ->setRoles([User::ROLE_SUPERADMIN])
             ->setPassword($this->passwordEncoder->encodePassword(
                 $user,
                 'admin45470'
             ))
-            ->setProfil('profil_commercial')
+            ->setCreatedat( new DateTime('now'))
+            ->setUpdatedat( new DateTime('now'))
         ;
         $manager->persist($user);
 

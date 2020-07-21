@@ -1,0 +1,64 @@
+<nav class="side-bar">
+	<ul class="list-unstyled">
+		<li>
+			<a href="#prospectsSubmenu" data-toggle="collapse" aria-expanded="false" class="side-bar-link dropdown-toggle">Prospects</a>
+      <ul class="collapse list-unstyled" id="prospectsSubmenu">
+        <li>
+          <a href="{{ path('prospect_index') }}" class="side-bar-link-item">Liste</a>
+        </li>
+        <li>
+          <a href="{{ path('prospect_new') }}" class="side-bar-link-item">Ajouter</a>
+        </li>
+      </ul>
+		</li>
+		<li>
+			<a href="#commandsSubmenu" data-toggle="collapse" aria-expanded="false" class="side-bar-link dropdown-toggle">Commandes</a>
+      <ul class="collapse list-unstyled" id="commandsSubmenu">
+        <li>
+          <a href="{{ path('command_index') }}" class="side-bar-link-item">Liste</a>
+        </li>
+        <li>
+          <a href="{{ path('command_new') }}" class="side-bar-link-item">Ajouter</a>
+        </li>
+      </ul>
+		</li>
+		<li>
+      <a href="#publicitiesSubmenu" data-toggle="collapse" aria-expanded="false" class="side-bar-link dropdown-toggle">Publicités</a>
+      <ul class="collapse list-unstyled" id="publicitiesSubmenu">
+        <li>
+          <a href="{{ path('publicity_index') }}" class="side-bar-link-item">Liste</a>
+        </li>
+        <li>
+          <a href="{{ path('publicity_new') }}" class="side-bar-link-item">Ajouter</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="#supportsSubmenu" data-toggle="collapse" aria-expanded="false" class="side-bar-link dropdown-toggle">Supports</a>
+      <ul class="collapse list-unstyled" id="supportsSubmenu">
+        <li>
+          <a href="#" class="side-bar-link-item">Liste</a>
+        </li>
+        <li>
+          <a href="#" class="side-bar-link-item">Ajouter</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      {% if is_granted("ROLE_SUPERADMIN") %}
+        <a href="#usersSubmenu" data-toggle="collapse" aria-expanded="false" class="side-bar-link dropdown-toggle">Utilisateurs</a>
+      <ul class="collapse list-unstyled" id="usersSubmenu">
+        <li>
+          <a href="#" class="side-bar-link-item">Liste</a>
+        </li>
+        <li>
+          <a href="#" class="side-bar-link-item">Ajouter</a>
+        </li>
+      </ul>
+      {% endif %}
+    </li>
+    <li>
+      <a href="{{ path('app_logout') }}" class="side-bar-link">Se déconnecter</a>
+    </li>
+	</ul>
+</nav>

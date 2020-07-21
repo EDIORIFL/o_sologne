@@ -4,7 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Prospect;
 use App\Form\ProspectType;
+use App\Repository\ActivityAreaRepository;
 use App\Repository\ProspectRepository;
+use App\Repository\ProspectStatusRepository;
+use App\Repository\PublicityRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,10 +55,23 @@ class ProspectController extends AbstractController
     /**
      * @Route("/{id}", name="prospect_show", methods={"GET"})
      */
-    public function show(Prospect $prospect): Response
-    {
+    public function show(
+        Prospect $prospect,
+        UserRepository $userRepository,
+        ActivityAreaRepository $activityAreaRepository,
+        ProspectStatusRepository $prospectStatusRepository,
+        PublicityRepository $publicityRepository
+    ): Response {
+        $user = $userRepository->findOneBy(['id' => $prospect->getIdaccount()]);
+        $activityArea = $activityAreaRepository->findOneBy(['id' => $prospect->getIdactivityarea()]);
+        $prospectStatus = $prospectStatusRepository->findOneBy(['id' => $prospect->getIdprospectstatus()]);
+        $publicities = $publicityRepository->findBy(['idprospect' => $prospect->getId()]);
         return $this->render('prospect/show.html.twig', [
             'prospect' => $prospect,
+            'user' => $user,
+            'activityArea' => $activityArea,
+            'prospectStatus' => $prospectStatus,
+            'publicities' => $publicities
         ]);
     }
 
@@ -83,7 +100,7 @@ class ProspectController extends AbstractController
      */
     public function delete(Request $request, Prospect $prospect): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$prospect->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $prospect->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($prospect);
             $entityManager->flush();

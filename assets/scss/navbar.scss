@@ -1,0 +1,32 @@
+.side-bar {
+    min-width: 15%;
+    background: $primary;
+    max-height: 100vh;
+    min-height: 100vh;
+    position: sticky;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    &-link {
+        padding: .2rem .5rem;
+        color: #fff;
+        transition: ease-in .2s;
+        width: 100%;
+        display: inline-block;
+        &:hover {
+            background: #fff;
+            color: $primary;
+        }
+        &-item {
+            padding: .2rem 1rem;
+            color: #fff;
+            display: inline-block;
+            width: 100%;
+            transition: ease-in .2s;
+            &:hover {
+                background: #fff;
+                color: $primary;
+            }
+        }
+    }
+}

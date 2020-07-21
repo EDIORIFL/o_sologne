@@ -69,16 +69,16 @@ class User implements UserInterface
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="createdat", type="datetime", nullable=false, options={"default"="2016-01-01 00:00:00"})
+     * @ORM\Column(name="createdat", type="datetime", nullable=false)
      */
-    private $createdat = '2016-01-01 00:00:00';
+    private $createdat;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updatedat", type="datetime", nullable=false, options={"default"="2016-01-01 00:00:00"})
+     * @ORM\Column(name="updatedat", type="datetime", nullable=false)
      */
-    private $updatedat = '2016-01-01 00:00:00';
+    private $updatedat;
 
     public function getId(): ?int
     {
@@ -196,24 +196,24 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getCreatedat(): ?\DateTimeInterface
+    public function getCreatedat(): ?\DateTime
     {
         return $this->createdat;
     }
 
-    public function setCreatedat(\DateTimeInterface $createdat): self
+    public function setCreatedat(\DateTime $createdat): self
     {
         $this->createdat = $createdat;
 
         return $this;
     }
 
-    public function getUpdatedat(): ?\DateTimeInterface
+    public function getUpdatedat(): ?\DateTime
     {
         return $this->updatedat;
     }
 
-    public function setUpdatedat(\DateTimeInterface $updatedat): self
+    public function setUpdatedat(\DateTime $updatedat): self
     {
         $this->updatedat = $updatedat;
 
