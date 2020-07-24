@@ -10,6 +10,13 @@
 		{% block stylesheets %}{% endblock %}
 	</head>
 	<body>
+		{% for label, messages in app.flashes %}
+			{% for message in messages %}
+				<div class="alert alert-{{ label }} w-100">
+					{{ message }}
+				</div>
+			{% endfor %}
+		{% endfor %}
 		<div class="{% if app.request.get('_route') != 'app_login' %}wrapper{% endif %}">
 			{% if app.request.get('_route') != 'app_login' %}
 				{% include "_navbar.html.twig" %}

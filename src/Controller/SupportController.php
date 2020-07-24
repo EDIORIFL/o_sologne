@@ -55,7 +55,6 @@ class SupportController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $supportType = $support->getSupportType();
             $support->setIdsupporttype($supportType->getId());
-            dd($support);
             $entityManager->persist($support);
             $entityManager->flush();
 

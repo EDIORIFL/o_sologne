@@ -5,6 +5,6 @@ class PasswordVerify
 {
     public function verify($password) 
     {
-        return strlen(trim($password)) && $password !== null;
+        return $password !== null && strlen(trim($password)) > 3;
     }
 }

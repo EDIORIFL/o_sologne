@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Util\PasswordVerify;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,6 +43,7 @@ class UserController extends AbstractController
     public function new(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
         $user = new User();
+        $verificator = new PasswordVerify;
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
@@ -52,12 +54,17 @@ class UserController extends AbstractController
                 $user->setRoles([User::ROLE_ADMIN, User::ROLE_USER]);
             }
             $entityManager = $this->getDoctrine()->getManager();
-            $user
-                ->setPassword($encoder->encodePassword($user, $user->getPassword()))
-                ->setCreatedat(new \DateTime('now'))
-                ->setUpdatedat(new \DateTime('now'));
-            $entityManager->persist($user);
-            $entityManager->flush();
+            if ($verificator->verify($user->getPassword)) {
+                $user
+                    ->setPassword($encoder->encodePassword($user, $user->getPassword()))
+                    ->setCreatedat(new \DateTime('now'))
+                    ->setUpdatedat(new \DateTime('now'));
+                $entityManager->persist($user);
+                $entityManager->flush();
+            } 
+            else {
+                $this->addFlash('error', 'Votre mot de passe n\'est pas valide, merci d\'en choisir un qui ne soit pas inférieur à 3 caractères.');
+            }
 
             return $this->redirectToRoute('user_index');
         }
@@ -84,8 +91,10 @@ class UserController extends AbstractController
     public function edit(Request $request, User $user, UserPasswordEncoderInterface $encoder): Response
     {
         $hasAccess = $this->isGranted(User::ROLE_SUPERADMIN);
+        $verificator = new PasswordVerify;
+        $form = $this->createForm(UserType::class, $user);
+
         if ($this->getUser() === $user || $hasAccess) {
-            $form = $this->createForm(UserType::class, $user);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
@@ -95,21 +104,22 @@ class UserController extends AbstractController
                 } elseif (in_array(User::ROLE_ADMIN, $data->getRoles())) {
                     $user->setRoles([User::ROLE_ADMIN, User::ROLE_USER]);
                 }
-                $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
-                dd($data->getPassword() === $user->getPassword());
+                if ($verificator->verify($data->getPassword())) {
+                    $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
+                }
                 $user->setUpdatedat(new \DateTime('now'));
                 $this->getDoctrine()->getManager()->flush();
 
                 return $this->redirectToRoute('user_index');
             }
-
-            return $this->render('user/edit.html.twig', [
-                'user' => $user,
-                'form' => $form->createView(),
-            ]);
         } else {
             $this->redirectToRoute('user_index');
         }
+
+        return $this->render('user/edit.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
     }
 
     /**

@@ -78,7 +78,7 @@ class UserType extends AbstractType
                 ]
             ])
             ->add('password', PasswordType::class, [
-                'label' => 'Vérifier votre mot de passe',
+                'label' => 'Mot de passe',
                 'label_attr' => [
                     'class' => ''
                 ],

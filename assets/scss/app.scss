@@ -26,3 +26,16 @@ body {
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
+
+.alert {
+    position: fixed;
+    top: 0;
+    left: 0; 
+    right: 0;
+
+    &--error {
+        background: #f8d7da;
+        border-bottom: #f5c6cb;
+        color: #a82d24;
+    }
+}
