@@ -1,4 +1,23 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-primary mb-1">{{ button_label|default('Enregistrer') }}</button>
+{{ form_row(form.login) }}
+{% if is_granted("ROLE_SUPERADMIN") %}
+	{{ form_row(form.roles) }}
+{% else %}
+	<div class="d-none">
+		{{ form_row(form.roles) }}
+	</div>
+{% endif %}
+{{ form_row(form.profil) }}
+{{ form_row(form.name) }}
+{% if is_granted("ROLE_SUPERADMIN") %}
+	{{ form_row(form.iseditable) }}
+	{{ form_row(form.isactive) }}
+{% else %}
+	<div class="d-none">
+		{{ form_row(form.iseditable) }}
+		{{ form_row(form.isactive) }}
+	</div>
+{% endif %}
+{{ form_row(form.password) }}
+<button class="btn btn-primary mb-1">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}

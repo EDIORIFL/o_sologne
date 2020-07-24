@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Command{% endblock %}
+{% block title %}{{ command.prospect ? command.prospect.name : 'Commande' }}{% endblock %}
 
 {% block body %}
     <h1>{{ command.prospect ? command.prospect.name : 'Commande' }}</h1>

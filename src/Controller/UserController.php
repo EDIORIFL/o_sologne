@@ -54,15 +54,14 @@ class UserController extends AbstractController
                 $user->setRoles([User::ROLE_ADMIN, User::ROLE_USER]);
             }
             $entityManager = $this->getDoctrine()->getManager();
-            if ($verificator->verify($user->getPassword)) {
+            if ($verificator->verify($user->getPassword())) {
                 $user
                     ->setPassword($encoder->encodePassword($user, $user->getPassword()))
                     ->setCreatedat(new \DateTime('now'))
                     ->setUpdatedat(new \DateTime('now'));
                 $entityManager->persist($user);
                 $entityManager->flush();
-            } 
-            else {
+            } else {
                 $this->addFlash('error', 'Votre mot de passe n\'est pas valide, merci d\'en choisir un qui ne soit pas inférieur à 3 caractères.');
             }
 
@@ -107,10 +106,20 @@ class UserController extends AbstractController
                 if ($verificator->verify($data->getPassword())) {
                     $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
                 }
+                else {
+                    $this->addFlash('error', 'Votre mot de passe n\'est pas valide, merci d\'en choisir un qui ne soit pas inférieur à 3 caractères.');
+                    return $this->redirectToRoute('user_edit', ['id' => $this->getUser()->getId()]);
+                }
                 $user->setUpdatedat(new \DateTime('now'));
                 $this->getDoctrine()->getManager()->flush();
 
-                return $this->redirectToRoute('user_index');
+                if ($hasAccess) {
+                    return $this->redirectToRoute('user_index');
+                }
+                else {
+                    $this->addFlash('information', 'Les modifications ont bien été enregistrées.');
+                    return $this->redirectToRoute('prospect_index');
+                }
             }
         } else {
             $this->redirectToRoute('user_index');

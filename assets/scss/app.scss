@@ -32,10 +32,16 @@ body {
     top: 0;
     left: 0; 
     right: 0;
+    z-index: 5;
 
-    &--error {
+    &-error {
         background: #f8d7da;
-        border-bottom: #f5c6cb;
+        border-bottom: #f5c6cb solid 1px;
         color: #a82d24;
+    }
+
+    &-information {
+        background: lightgreen;
+        border-bottom: lime solid 1px;
     }
 }
