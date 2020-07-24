@@ -28,11 +28,6 @@
 											<i class="far fa-edit"></i>
 											Editer</a>
 									</li>
-									<li class="prospects-item-link">
-										<a href="{{ path('support_type_delete', {id:type.id}) }}">
-											<i class="far fa-trash-alt"></i>
-											Supprimer</a>
-									</li>
 								</ul>
 							</div>
 						</div>
@@ -43,7 +38,9 @@
 					</p>
 				{% endfor %}
 			</ul>
+			{% if support_types is not null %}
 			{{ knp_pagination_render(support_types) }}
+			{% endif %}
 		</div>
 	</div>
 {% endblock %}

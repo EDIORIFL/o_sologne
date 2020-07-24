@@ -53,6 +53,8 @@ class AppFixtures extends Fixture
             ->setCreatedat(new DateTime());
         $manager->persist($prospectStatus);
 
+        $manager->flush();
+
         $prospect = new Prospect;
         $prospect
             ->setIdaccount($user->getId())
@@ -73,6 +75,8 @@ class AppFixtures extends Fixture
             ->setCreatedat(new DateTime())
             ->setUpdatedat(new DateTime());
         $manager->persist($supportType);
+
+        $manager->flush();
 
         $support = new Support;
         $support

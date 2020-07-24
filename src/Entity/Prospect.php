@@ -73,21 +73,21 @@ class Prospect
     /**
      * @var string
      *
-     * @ORM\Column(name="telephone", type="string", length=15, nullable=false)
+     * @ORM\Column(name="telephone", type="string", length=15, nullable=true)
      */
     private $telephone = '';
 
     /**
      * @var string
      *
-     * @ORM\Column(name="mobile", type="string", length=15, nullable=false)
+     * @ORM\Column(name="mobile", type="string", length=15, nullable=true)
      */
     private $mobile = '';
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255, nullable=false)
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
      */
     private $email = '';
 
@@ -254,7 +254,7 @@ class Prospect
         return $this->telephone;
     }
 
-    public function setTelephone(string $telephone): self
+    public function setTelephone(?string $telephone): self
     {
         $this->telephone = $telephone;
 
@@ -266,7 +266,7 @@ class Prospect
         return $this->mobile;
     }
 
-    public function setMobile(string $mobile): self
+    public function setMobile(?string $mobile): self
     {
         $this->mobile = $mobile;
 
@@ -278,7 +278,7 @@ class Prospect
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
 
@@ -290,7 +290,7 @@ class Prospect
         return $this->comment;
     }
 
-    public function setComment(string $comment): self
+    public function setComment(?string $comment): self
     {
         $this->comment = $comment;
 
@@ -398,7 +398,7 @@ class Prospect
         return $this->user;
     }
 
-    public function setUser(User $user)
+    public function setUser(?User $user)
     {
         $this->user = $user;
 
@@ -410,7 +410,7 @@ class Prospect
         return $this->activityArea;
     }
 
-    public function setActivityArea(ActivityArea $activityArea)
+    public function setActivityArea(?ActivityArea $activityArea)
     {
         $this->activityArea = $activityArea;
 
@@ -422,7 +422,7 @@ class Prospect
         return $this->prospectStatus;
     }
 
-    public function setProspectStatus(ProspectStatus $prospectStatus)
+    public function setProspectStatus(?ProspectStatus $prospectStatus)
     {
         $this->prospectStatus = $prospectStatus;
 

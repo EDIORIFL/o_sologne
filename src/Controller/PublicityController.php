@@ -7,6 +7,7 @@ use App\Form\PublicityType;
 use App\Repository\ProspectRepository;
 use App\Repository\PublicityRepository;
 use DateTime;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,15 +25,20 @@ class PublicityController extends AbstractController
     /**
      * @Route("/", name="publicity_index", methods={"GET"})
      */
-    public function index(PublicityRepository $publicityRepository, ProspectRepository $prospectRepository): Response
-    {
-        $publicities = $publicityRepository->findAll();
-        foreach ($publicities as $publicity) {
+    public function index(
+        Request $request,
+        PublicityRepository $publicityRepository,
+        ProspectRepository $prospectRepository,
+        PaginatorInterface $paginator
+    ): Response {
+        $datas = $publicityRepository->findAll();
+        foreach ($datas as $publicity) {
             $prospect = $prospectRepository->findOneBy(['id' => $publicity->getIdprospect()]);
             if ($prospect) {
                 $publicity->setProspect($prospect);
             }
         }
+        $publicities = $paginator->paginate($datas, $request->query->getInt('page', 1), 20);
         return $this->render('publicity/index.html.twig', [
             'publicities' => $publicities,
         ]);
@@ -87,14 +93,14 @@ class PublicityController extends AbstractController
     public function edit(Request $request, Publicity $publicity): Response
     {
         $form = $this->createForm(PublicityType::class, $publicity);
-        $file = new UploadedFile('./files/'.$publicity->getFilename(), $publicity->getFilename());
+        $file = new UploadedFile('./files/' . $publicity->getFilename(), $publicity->getFilename());
         $publicity->setFile($file);
         $form->handleRequest($request);
         $filesystem = new Filesystem;
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($filesystem->exists('files/'.$publicity->getFilename)) {
-                $filesystem->remove('files/'.$publicity->getFilename());
+            if ($filesystem->exists('files/' . $publicity->getFilename)) {
+                $filesystem->remove('files/' . $publicity->getFilename());
             }
             $publicity
                 ->setUpdatedat(new DateTime('now'));

@@ -27,11 +27,6 @@
 											<i class="far fa-edit"></i>
 											Editer</a>
 									</li>
-									<li class="prospects-item-link">
-										<a href="{{ path('prospect_status_delete', {id:status.id}) }}">
-											<i class="far fa-trash-alt"></i>
-											Supprimer</a>
-									</li>
 								</ul>
 							</div>
 						</div>
@@ -42,7 +37,9 @@
 					</p>
 				{% endfor %}
 			</ul>
+			{% if prospect_statuses is not null %}
 			{{ knp_pagination_render(prospect_statuses) }}
+			{% endif %}
 		</div>
 	</div>
 {% endblock %}

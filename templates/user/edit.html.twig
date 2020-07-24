@@ -1,12 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Editer l'utilisateur {{ user.name }}{% endblock %}
+{% block title %}Editer l'utilisateur
+	{{ user.name }}
+{% endblock %}
 
 {% block body %}
-    <h1>Editer l'utilisateur {{ user.name }}</h1>
-    <a class="d-inline-block btn btn-primary" href="{{ path('user_index') }}"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
+	<h1>Editer l'utilisateur
+		{{ user.name }}</h1>
+	<a class="d-inline-block btn btn-primary" href="{{ path('user_index') }}">
+		<i class="fas fa-arrow-left"></i>
+		Retour à la liste</a>
 
-    {{ include('user/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+	{{ include('user/_form.html.twig', {'button_label': 'Enregistrer'}) }}
 
-    {{ include('user/_delete_form.html.twig') }}
+	{% if app.user != user %}
+		{{ include('user/_delete_form.html.twig') }}
+	{% endif %}
 {% endblock %}

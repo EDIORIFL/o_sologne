@@ -27,14 +27,26 @@ class ProspectController extends AbstractController
     /**
      * @Route("/", name="prospect_index")
      */
-    public function index(Request $request, ProspectRepository $prospectRepository, PaginatorInterface $paginator): Response
-    {
+    public function index(
+        Request $request,
+        ProspectRepository $prospectRepository,
+        ActivityAreaRepository $activityAreaRepository,
+        ProspectStatusRepository $prospectStatusRepository,
+        PaginatorInterface $paginator
+    ): Response {
         $form = $this->createForm(SearchType::class);
         $datas = $prospectRepository->findAll();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $datas = $form->getData();
             $datas = $prospectRepository->findBySearchForm($datas);
+        }
+        foreach ($datas as $prospect) {
+            $activityArea = $activityAreaRepository->findOneBy(['id' => $prospect->getIdactivityarea()]);
+            $prospectStatus = $prospectStatusRepository->findOneBy(['id' => $prospect->getIdprospectstatus()]);
+            $prospect
+                ->setActivityArea($activityArea ? $activityArea : null)
+                ->setProspectStatus($prospectStatus);
         }
         $prospects = $paginator->paginate($datas, $request->query->getInt('page', 1), 20);
         return $this->render('prospect/index.html.twig', [

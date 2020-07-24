@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @Route("/prospect/status")
@@ -21,10 +22,15 @@ class ProspectStatusController extends AbstractController
     /**
      * @Route("/", name="prospect_status_index", methods={"GET"})
      */
-    public function index(ProspectStatusRepository $prospectStatusRepository): Response
-    {
+    public function index(
+        Request $request,
+        ProspectStatusRepository $prospectStatusRepository,
+        PaginatorInterface $paginator
+    ): Response {
+        $datas = $prospectStatusRepository->findAll();
+        $prospectStatuses = $paginator->paginate($datas, $request->query->getInt('page', 1), 20);
         return $this->render('prospect_status/index.html.twig', [
-            'prospect_statuses' => $prospectStatusRepository->findAll(),
+            'prospect_statuses' => $prospectStatuses,
         ]);
     }
 
@@ -90,7 +96,7 @@ class ProspectStatusController extends AbstractController
      */
     public function delete(Request $request, ProspectStatus $prospectStatus): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$prospectStatus->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $prospectStatus->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($prospectStatus);
             $entityManager->flush();

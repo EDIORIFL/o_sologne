@@ -15,7 +15,7 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        if ($this->getUser()) {
+        if ($this->getUser() && $this->getUser()->getIsactive()) {
             return $this->redirectToRoute('prospect_index');
         }
 

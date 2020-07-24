@@ -46,6 +46,26 @@ class SearchType extends AbstractType
                 ],
                 'required' => false,
             ])
+            ->add('contact', TextType::class, [
+                'label_attr' => [
+                    'class' => 'd-none'
+                ],
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Nom du contact'
+                ],
+                'required' => false,
+            ])
+            ->add('siret', TextType::class, [
+                'label_attr' => [
+                    'class' => 'd-none'
+                ],
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Siret'
+                ],
+                'required' => false,
+            ])
             ->setMethod('GET')
         ;
     }

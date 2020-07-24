@@ -84,21 +84,24 @@ class ProspectType extends AbstractType
                 'label_attr' => [],
                 'attr' => [
                     'class' => 'form-control'
-                ]
+                ],
+                'required' => false
             ])
             ->add('mobile', TextType::class, [
                 'label' => 'Mobile',
                 'label_attr' => [],
                 'attr' => [
                     'class' => 'form-control'
-                ]
+                ],
+                'required' => false
             ])
             ->add('email', TextType::class, [
                 'label' => 'Email',
                 'label_attr' => [],
                 'attr' => [
                     'class' => 'form-control'
-                ]
+                ],
+                'required' => false
             ])
             ->add('comment', TextAreaType::class, [
                 'label' => 'Commentaire',
@@ -134,7 +137,8 @@ class ProspectType extends AbstractType
                 'label_attr' => [],
                 'attr' => [
                     'class' => 'form-control'
-                ]
+                ],
+                'required' => false
             ])
             ->add('datestatus', DateType::class, [
                 'widget' => 'single_text',
@@ -142,7 +146,8 @@ class ProspectType extends AbstractType
                 'label_attr' => [],
                 'attr' => [
                     'class' => 'form-control'
-                ]
+                ],
+                'required' => false
             ])
             ->add('isactive', CheckboxType::class, [
                 'label' => 'Est actif ?',

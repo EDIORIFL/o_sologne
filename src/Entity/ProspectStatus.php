@@ -46,7 +46,7 @@ class ProspectStatus
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="createdat", type="datetime", nullable=false})
+     * @ORM\Column(name="createdat", type="datetime", nullable=false)
      */
     private $createdat;
 

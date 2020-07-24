@@ -8,32 +8,67 @@
 
 	<div class="row">
 		<div class="col-7">
-			<p class="prospect-infos">
-				N° Siret :
-				{{ prospect.siret }}<br>
-				<strong>{{ prospect.activityArea.label }}</strong><br>
-				Responsable : 
-				{{ prospect.user.name }}<br>
-				Contact :
-				{{ prospect.manager }}<br>
-				Adresse :
-				{{ prospect.address }}<br>
-				N° de téléphone :
-				{{ prospect.telephone }}<br>
-				N° de mobile :
-				{{ prospect.mobile }}<br>
-				Adresse email :
-				<a href="mailto:{{ prospect.email }}">{{ prospect.email }}</a><br>
-				Commentaires :
-				{{ prospect.comment }}<br>
-				Statut : 
-				{{ prospect.prospectStatus.label }}
-			</p>
+			<div class="prospect-infos d-flex flex-column">
+				<p>
+					N° Siret :
+					{{ prospect.siret }}
+				</p>
+				{% if prospect.activityArea is not null %}
+					<p>
+						Secteur d'activité:
+						{{ prospect.activityArea.label }}
+					</p>
+				{% endif %}
+				{% if prospect.user is not null %}
+					<p>
+						Responsable :
+						{{ prospect.user.name }}
+					</p>
+				{% endif %}
+				<p>
+					Contact :
+					{{ prospect.manager }}
+				</p>
+				<p>
+					Adresse :
+					{{ prospect.address }}
+				</p>
+				<p>
+					N° de téléphone :
+					{{ prospect.telephone }}
+				</p>
+				<p>
+					N° de mobile :
+					{{ prospect.mobile ? prospect.mobile : 'Non renseigné' }}
+				</p>
+				<p>
+					Adresse email :
+					{% if prospect.email is not null %}
+						<a href="mailto:{{ prospect.email }}">{{ prospect.email }}</a>
+					{% else %}
+						Non renseigné
+					{% endif %}
+				</p>
+				<p>
+					Commentaires :
+					{{ prospect.comment }}
+				</p>
+				{% if prospect.prospectStatus is not null %}
+					<p>
+						Statut :
+						{{ prospect.prospectStatus.label }}
+					</p>
+				{% endif %}
+			</div>
 		</div>
 		<div class="col-5">
-			<a class="d-inline-block btn btn-primary" href="{{ path('prospect_index') }}"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
-			<a class="d-inline-block btn btn-primary" href="{{ path('prospect_edit', {'id': prospect.id}) }}"><i class="far fa-edit"></i> Editer</a>
-      		{{ include('prospect/_delete_form.html.twig') }}
+			<a class="d-inline-block btn btn-primary" href="{{ path('prospect_index') }}">
+				<i class="fas fa-arrow-left"></i>
+				Retour à la liste</a>
+			<a class="d-inline-block btn btn-primary" href="{{ path('prospect_edit', {'id': prospect.id}) }}">
+				<i class="far fa-edit"></i>
+				Editer</a>
+			{{ include('prospect/_delete_form.html.twig') }}
 		</div>
 	</div>
 

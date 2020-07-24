@@ -9,6 +9,7 @@ use App\Repository\ProspectRepository;
 use App\Repository\SupportRepository;
 use App\Repository\SupportTypeRepository;
 use DateTime;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,13 +26,16 @@ class CommandController extends AbstractController
      * @Route("/", name="command_index", methods={"GET"})
      */
     public function index(
+        Request $request,
         CommandRepository $commandRepository,
         ProspectRepository $prospectRepository,
         SupportRepository $supportRepository,
-        SupportTypeRepository $supportTypeRepository
+        SupportTypeRepository $supportTypeRepository,
+        PaginatorInterface $paginator
     ): Response {
-        $commands = $commandRepository->findAll();
-        foreach ($commands as $command) {
+        $datas = $commandRepository->findAll();
+
+        foreach ($datas as $command) {
             $prospect = $prospectRepository->findOneBy(['id' => $command->getIdprospect()]);
             $support = $supportRepository->findOneBy(['id' => $command->getIdsupport()]);
             if ($support) {
@@ -43,6 +47,7 @@ class CommandController extends AbstractController
                 $command->setProspect($prospect);
             }
         }
+        $commands = $paginator->paginate($datas, $request->query->getInt('page', 1), 20);
         return $this->render('command/index.html.twig', [
             'commands' => $commands,
         ]);

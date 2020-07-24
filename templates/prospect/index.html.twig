@@ -10,33 +10,55 @@
 	<div class="row">
 		<div class="col-12">
 			{{ form_start(form) }}
-			<div class="search-form row my-3">
-				<div class="col-4">
+			<div class="search-form row mt-3 mb-1">
+				<div class="col-2">
 					{{ form_widget(form.name) }}
 				</div>
-				<div class="col-4">
+				<div class="col-2">
+					{{ form_widget(form.contact) }}
+				</div>
+				<div class="col-3">
+					{{ form_widget(form.siret) }}
+				</div>
+				<div class="col-2">
 					{{ form_widget(form.postal_code) }}
 				</div>
-				<div class="col-4">
+				<div class="col-3">
 					{{ form_widget(form.activity_area) }}
 				</div>
-				<div class="col-12">
-					<button class="btn btn-primary d-block mx-auto mt-2">
+				<div class="col-12 d-flex justify-content-center">
+					<button class="btn btn-primary d-inline-block mt-2 mr-1">
 						<i class="fas fa-search"></i>
 						{{ button_label|default('Rechercher') }}</button>
+				<button id="reset-form" class="btn btn-primary d-inline-block mt-2">
+					<i class="fas fa-undo"></i>
+					Réinitialiser les filtres</button>
 				</div>
 			</div>
 			{{ form_end(form) }}
+			<div class="col-12 text-center">
+			</div>
 			<ul class="list-group">
 				{% for prospect in prospects %}
 					<li class="list-group-item prospects-item">
 						<div class="row prospects-item-row">
-							<div class="col-7">
+							<div class="col-4">
 								<strong>{{ prospect.name }}</strong>
 								<br>
-								<small>{{ prospect.siret }}</small>
+								<small>Siret :
+									{{ prospect.siret }}</small>
 							</div>
-							<div class="col-5">
+							<div class="col-4">
+								<p>
+									{% if prospect.activityArea is not null %}
+										Secteur :
+										{{ prospect.activityArea.label }}<br>
+									{% endif %}
+									Adresse :
+									{{ prospect.address }}
+								</p>
+							</div>
+							<div class="col-4">
 								<ul class="list-unstyled d-flex flex-row">
 									<li class="prospects-item-link">
 										<a href="{{ path('prospect_show', {id:prospect.id}) }}">
@@ -48,11 +70,6 @@
 											<i class="far fa-edit"></i>
 											Editer</a>
 									</li>
-									<li class="prospects-item-link">
-										<a href="{{ path('prospect_delete', {id:prospect.id}) }}">
-											<i class="far fa-trash-alt"></i>
-											Supprimer</a>
-									</li>
 								</ul>
 							</div>
 						</div>
@@ -63,7 +80,62 @@
 					</p>
 				{% endfor %}
 			</ul>
-			{{ knp_pagination_render(prospects) }}
+			{% if prospects is not null %}
+				{{ knp_pagination_render(prospects) }}
+			{% endif %}
 		</div>
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	<script>
+		function prospectsIndex() {
+var activitySelect = document.getElementById('search_activity_area');
+var prospectName = document.getElementById('search_name');
+var postalCode = document.getElementById('search_postal_code');
+var prospectSiret = document.getElementById('search_siret');
+var prospectContact = document.getElementById('search_contact');
+var resetFiltersButton = document.getElementById('reset-form');
+
+/**
+            @desc Custom default option for activities select
+            */
+function allActivitiesSelectLabel() {
+if (! activitySelect) {
+return;
+}
+
+var defaultOption = activitySelect.querySelector('option[value=""]');
+
+if (! defaultOption) {
+return;
+}
+
+defaultOption.innerText = 'Tous les secteurs d\'activité';
+}
+
+/**
+            @desc Reset all filters
+            */
+function resetFilters(e) {
+	e.preventDefault();
+activitySelect.value = '';
+prospectName.value = '';
+postalCode.value = '';
+prospectSiret.value = '';
+prospectContact.value = '';
+}
+
+allActivitiesSelectLabel();
+
+if (! resetFiltersButton) {
+return;
+}
+resetFiltersButton.addEventListener('click', resetFilters);
+}
+
+prospectsIndex();
+	</script>
 {% endblock %}

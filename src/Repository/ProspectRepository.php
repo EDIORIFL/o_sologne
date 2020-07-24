@@ -37,6 +37,16 @@ class ProspectRepository extends ServiceEntityRepository
             $qb->andWhere('p.idactivityarea = :activity_area');
             $qb->setParameter('activity_area', $activityArea);
         }
+        if ($options['contact'] != null) {
+            $contact = $options['contact'];
+            $qb->andWhere('p.manager LIKE :contact');
+            $qb->setParameter('contact', $contact);
+        }
+        if ($options['siret'] != null) {
+            $siret = $options['siret'];
+            $qb->andWhere('p.manager LIKE :siret');
+            $qb->setParameter('siret', $siret);
+        }
         return $qb->getQuery()->getResult();
 
     }

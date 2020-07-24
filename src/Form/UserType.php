@@ -41,15 +41,6 @@ class UserType extends AbstractType
                     'Utilisateur' => User::ROLE_USER
                 ]
             ])
-            ->add('password', PasswordType::class, [
-                'label' => 'Mot de passe',
-                'label_attr' => [
-                    'class' => ''
-                ],
-                'attr' => [
-                    'class' => 'form-control'
-                ]
-            ])
             ->add('profil', TextType::class, [
                 'label' => 'Profil',
                 'label_attr' => [
@@ -85,6 +76,16 @@ class UserType extends AbstractType
                 'attr' => [
                     'class' => 'form-check d-inline-block'
                 ]
+            ])
+            ->add('password', PasswordType::class, [
+                'label' => 'Vérifier votre mot de passe',
+                'label_attr' => [
+                    'class' => ''
+                ],
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'required' => false,
             ])
         ;
     }

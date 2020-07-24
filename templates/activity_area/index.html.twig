@@ -5,7 +5,7 @@
 
 {% block body %}
 	<h1>Liste des secteurs d'activité</h1>
-	<a href="{{ path('activity_area_new') }}" class="btn btn-primary">Ajouter une commande</a>
+	<a href="{{ path('activity_area_new') }}" class="btn btn-primary">Ajouter une secteur d'activité</a>
 
 	<div class="row">
 		<div class="col-12">
@@ -28,11 +28,6 @@
 											<i class="far fa-edit"></i>
 											Editer</a>
 									</li>
-									<li class="prospects-item-link">
-										<a href="{{ path('activity_area_delete', {id:area.id}) }}">
-											<i class="far fa-trash-alt"></i>
-											Supprimer</a>
-									</li>
 								</ul>
 							</div>
 						</div>
@@ -43,7 +38,9 @@
 					</p>
 				{% endfor %}
 			</ul>
+			{% if activity_areas is not null %}
 			{{ knp_pagination_render(activity_areas) }}
+			{% endif %}
 		</div>
 	</div>
 {% endblock %}

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\ActivityArea;
 use App\Form\ActivityAreaType;
 use App\Repository\ActivityAreaRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,10 +21,15 @@ class ActivityAreaController extends AbstractController
     /**
      * @Route("/", name="activity_area_index", methods={"GET"})
      */
-    public function index(ActivityAreaRepository $activityAreaRepository): Response
-    {
+    public function index(
+        Request $request,
+        ActivityAreaRepository $activityAreaRepository,
+        PaginatorInterface $paginator
+    ): Response {
+        $datas = $activityAreaRepository->findAll();
+        $activityAreas = $paginator->paginate($datas, $request->query->getInt('page', 1), 20);
         return $this->render('activity_area/index.html.twig', [
-            'activity_areas' => $activityAreaRepository->findAll(),
+            'activity_areas' => $activityAreas,
         ]);
     }
 
@@ -85,7 +91,7 @@ class ActivityAreaController extends AbstractController
      */
     public function delete(Request $request, ActivityArea $activityArea): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$activityArea->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $activityArea->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($activityArea);
             $entityManager->flush();

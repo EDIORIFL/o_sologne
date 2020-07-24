@@ -40,11 +40,6 @@
 											<i class="far fa-edit"></i>
 											Editer</a>
 									</li>
-									<li class="prospects-item-link">
-										<a href="{{ path('command_delete', {id:command.id}) }}">
-											<i class="far fa-trash-alt"></i>
-											Supprimer</a>
-									</li>
 								</ul>
 							</div>
 						</div>
@@ -55,7 +50,9 @@
 					</p>
 				{% endfor %}
 			</ul>
+			{% if commands is not null %}
 			{{ knp_pagination_render(commands) }}
+			{% endif %}
 		</div>
 	</div>
 {% endblock %}
