@@ -105,6 +105,17 @@ class Command
      */
     private $createdat = '2016-01-01 00:00:00';
 
+
+    /**
+     * @var Prospect
+     */
+    private $prospect;
+
+    /**
+     * @var Support
+     */
+    private $support;
+
     /**
      * @var \DateTime
      *
@@ -273,5 +284,27 @@ class Command
         return $this;
     }
 
+    public function getProspect(): ?Prospect
+    {
+        return $this->prospect;
+    }
 
+    public function setProspect(Prospect $prospect)
+    {
+        $this->prospect = $prospect;
+
+        return $this;
+    }
+
+    public function getSupport(): ?Support
+    {
+        return $this->support;
+    }
+
+    public function setSupport(Support $support)
+    {
+        $this->support = $support;
+
+        return $this;
+    }
 }

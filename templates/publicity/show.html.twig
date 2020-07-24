@@ -1,46 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Publicity{% endblock %}
+{% block title %}Publicity
+{% endblock %}
 
 {% block body %}
-    <h1>Publicity</h1>
+	<h1>Publicity</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ publicity.id }}</td>
-            </tr>
-            <tr>
-                <th>Idprospect</th>
-                <td>{{ publicity.idprospect }}</td>
-            </tr>
-            <tr>
-                <th>Filename</th>
-                <td>{{ publicity.filename }}</td>
-            </tr>
-            <tr>
-                <th>Isactive</th>
-                <td>{{ publicity.isactive ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Iseditable</th>
-                <td>{{ publicity.iseditable ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Createdat</th>
-                <td>{{ publicity.createdat ? publicity.createdat|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Updatedat</th>
-                <td>{{ publicity.updatedat ? publicity.updatedat|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('publicity_index') }}">back to list</a>
-
-    <a href="{{ path('publicity_edit', {'id': publicity.id}) }}">edit</a>
-
-    {{ include('publicity/_delete_form.html.twig') }}
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ publicity.id }}</td>
+			</tr>
+			<tr>
+				<th>Prospect</th>
+				<td>
+					{% if publicity.prospect %}
+						<a href="{{ path('prospect_show', {id: publicity.prospect.id}) }}">{{ publicity.prospect ? publicity.prospect.name : '' }}</a>
+					{% endif %}
+				</td>
+			</tr>
+			<tr>
+				<th>Filename</th>
+				<td>{{ publicity.filename }}</td>
+			</tr>
+			<tr>
+				<th>Isactive</th>
+				<td>{{ publicity.isactive ? 'Yes' : 'No' }}</td>
+			</tr>
+			<tr>
+				<th>Iseditable</th>
+				<td>{{ publicity.iseditable ? 'Yes' : 'No' }}</td>
+			</tr>
+			<tr>
+				<th>Createdat</th>
+				<td>{{ publicity.createdat ? publicity.createdat|date('Y-m-d H:i:s') : '' }}</td>
+			</tr>
+			<tr>
+				<th>Updatedat</th>
+				<td>{{ publicity.updatedat ? publicity.updatedat|date('Y-m-d H:i:s') : '' }}</td>
+			</tr>
+		</tbody>
+	</table>
+    <div class="row">
+        <div class="col-12 text-center">
+			<a class="d-inline-block btn btn-primary" href="{{ path('publicity_index') }}"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
+			<a class="d-inline-block btn btn-primary" href="{{ path('publicity_edit', {'id': publicity.id}) }}"><i class="far fa-edit"></i> Editer</a>
+	        {{ include('publicity/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

@@ -7,13 +7,17 @@ use App\Form\CommandType;
 use App\Repository\CommandRepository;
 use App\Repository\ProspectRepository;
 use App\Repository\SupportRepository;
+use App\Repository\SupportTypeRepository;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * @Route("/command")
+ * @Security("is_granted('ROLE_USER')")
  */
 class CommandController extends AbstractController
 {
@@ -23,12 +27,21 @@ class CommandController extends AbstractController
     public function index(
         CommandRepository $commandRepository,
         ProspectRepository $prospectRepository,
-        SupportRepository $supportRepository
-        ): Response
-    {
+        SupportRepository $supportRepository,
+        SupportTypeRepository $supportTypeRepository
+    ): Response {
         $commands = $commandRepository->findAll();
         foreach ($commands as $command) {
-            
+            $prospect = $prospectRepository->findOneBy(['id' => $command->getIdprospect()]);
+            $support = $supportRepository->findOneBy(['id' => $command->getIdsupport()]);
+            if ($support) {
+                $supportType = $supportTypeRepository->findOneBy(['id' => $support->getIdsupporttype()]);
+                $command->setSupport($support);
+                $support->setSupportType($supportType);
+            }
+            if ($prospect) {
+                $command->setProspect($prospect);
+            }
         }
         return $this->render('command/index.html.twig', [
             'commands' => $commands,
@@ -46,6 +59,13 @@ class CommandController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $prospect = $command->getProspect();
+            $support = $command->getSupport();
+            $command
+                ->setIdprospect($prospect->getId())
+                ->setIdsupport($support->getId())
+                ->setCreatedat(new DateTime('now'))
+                ->setUpdatedat(new DateTime('now'));
             $entityManager->persist($command);
             $entityManager->flush();
 
@@ -64,9 +84,19 @@ class CommandController extends AbstractController
     public function show(
         Command $command,
         ProspectRepository $prospectRepository,
-        SupportRepository $supportRepository
-        ): Response
-    {
+        SupportRepository $supportRepository,
+        SupportTypeRepository $supportTypeRepository
+    ): Response {
+        $prospect = $prospectRepository->findOneBy(['id' => $command->getIdprospect()]);
+        $support = $supportRepository->findOneBy(['id' => $command->getIdsupport()]);
+        if ($support) {
+            $supportType = $supportTypeRepository->findOneBy(['id' => $support->getIdsupporttype()]);
+            $command->setSupport($support);
+            $support->setSupportType($supportType);
+        }
+        if ($prospect) {
+            $command->setProspect($prospect);
+        }
         return $this->render('command/show.html.twig', [
             'command' => $command,
         ]);
@@ -81,6 +111,12 @@ class CommandController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $prospect = $command->getProspect();
+            $support = $command->getSupport();
+            $command
+                ->setIdprospect($prospect->getId())
+                ->setIdsupport($support->getId())
+                ->setUpdatedat(new DateTime('now'));
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('command_index');
@@ -97,7 +133,7 @@ class CommandController extends AbstractController
      */
     public function delete(Request $request, Command $command): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$command->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $command->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($command);
             $entityManager->flush();

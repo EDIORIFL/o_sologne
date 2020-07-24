@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Support{% endblock %}
+{% block title %}Nouveau Support{% endblock %}
 
 {% block body %}
-    <h1>Create new Support</h1>
+    <h1>Créer un support</h1>
+    <a class="d-inline-block btn btn-primary" href="{{ path('support_index') }}"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
 
     {{ include('support/_form.html.twig') }}
-
-    <a href="{{ path('support_index') }}">back to list</a>
 {% endblock %}

@@ -63,6 +63,10 @@ class Publicity
      */
     private $updatedat = '2016-01-01 00:00:00';
 
+    private $file;
+
+    private $prospect;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -140,5 +144,23 @@ class Publicity
         return $this;
     }
 
+    public function getFile()
+    {
+        return $this->file;
+    }
 
+    public function setFile($file)
+    {
+        $this->file = $file;
+    }
+
+    public function getProspect()
+    {
+        return $this->prospect;
+    }
+
+    public function setProspect(Prospect $prospect)
+    {
+        $this->prospect = $prospect;
+    }
 }

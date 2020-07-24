@@ -59,16 +59,21 @@ class Support
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="createdat", type="datetime", nullable=false, options={"default"="2016-01-01 00:00:00"})
+     * @ORM\Column(name="createdat", type="datetime", nullable=false)
      */
-    private $createdat = '2016-01-01 00:00:00';
+    private $createdat;
+
+    /**
+     * @var SupportType
+     */
+    private $supportType;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updatedat", type="datetime", nullable=false, options={"default"="2016-01-01 00:00:00"})
+     * @ORM\Column(name="updatedat", type="datetime", nullable=false)
      */
-    private $updatedat = '2016-01-01 00:00:00';
+    private $updatedat;
 
     public function getId(): ?int
     {
@@ -99,12 +104,12 @@ class Support
         return $this;
     }
 
-    public function getDateedited(): ?\DateTimeInterface
+    public function getDateedited(): ?\DateTime
     {
         return $this->dateedited;
     }
 
-    public function setDateedited(?\DateTimeInterface $dateedited): self
+    public function setDateedited(?\DateTime $dateedited): self
     {
         $this->dateedited = $dateedited;
 
@@ -135,29 +140,39 @@ class Support
         return $this;
     }
 
-    public function getCreatedat(): ?\DateTimeInterface
+    public function getCreatedat(): ?\DateTime
     {
         return $this->createdat;
     }
 
-    public function setCreatedat(\DateTimeInterface $createdat): self
+    public function setCreatedat(\DateTime $createdat): self
     {
         $this->createdat = $createdat;
 
         return $this;
     }
 
-    public function getUpdatedat(): ?\DateTimeInterface
+    public function getUpdatedat(): ?\DateTime
     {
         return $this->updatedat;
     }
 
-    public function setUpdatedat(\DateTimeInterface $updatedat): self
+    public function setUpdatedat(\DateTime $updatedat): self
     {
         $this->updatedat = $updatedat;
 
         return $this;
     }
 
+    public function getSupportType(): ?SupportType
+    {
+        return $this->supportType;
+    }
 
+    public function setSupportType(SupportType $supportType)
+    {
+        $this->supportType = $supportType;
+
+        return $this;
+    }
 }

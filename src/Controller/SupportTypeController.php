@@ -9,9 +9,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * @Route("/support/type")
+ * @Security("is_granted('ROLE_USER')")
  */
 class SupportTypeController extends AbstractController
 {
@@ -35,6 +37,9 @@ class SupportTypeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $supportType
+                ->setCreatedat(new \DateTime('now'))
+                ->setUpdatedat(new \DateTime('now'));
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($supportType);
             $entityManager->flush();
@@ -67,6 +72,7 @@ class SupportTypeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $supportType->setUpdatedat(new \DateTime('now'));
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('support_type_index');
@@ -83,7 +89,7 @@ class SupportTypeController extends AbstractController
      */
     public function delete(Request $request, SupportType $supportType): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$supportType->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $supportType->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($supportType);
             $entityManager->flush();

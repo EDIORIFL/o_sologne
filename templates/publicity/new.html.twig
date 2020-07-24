@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Publicity{% endblock %}
+{% block title %}Nouvelle publicité{% endblock %}
 
 {% block body %}
-    <h1>Create new Publicity</h1>
+    <h1>Créer une publicité</h1>
+    <a class="d-inline-block btn btn-primary" href="{{ path('publicity_index') }}"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
 
     {{ include('publicity/_form.html.twig') }}
-
-    <a href="{{ path('publicity_index') }}">back to list</a>
 {% endblock %}

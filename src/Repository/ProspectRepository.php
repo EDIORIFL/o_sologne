@@ -19,6 +19,28 @@ class ProspectRepository extends ServiceEntityRepository
         parent::__construct($registry, Prospect::class);
     }
 
+    public function findBySearchForm(array $options)
+    {
+        $qb = $this->createQueryBuilder('p');
+        if ($options['name'] != null) {
+            $name = $options['name'];
+            $qb->andWhere('p.name LIKE :name');
+            $qb->setParameter('name', "%$name%");
+        }
+        if ($options['postal_code'] != null) {
+            $postalCode = $options['postal_code'];
+            $qb->andWhere('p.address LIKE :postal_code');
+            $qb->setParameter('postal_code', "%$postalCode%");
+        }
+        if ($options['activity_area'] != null) {
+            $activityArea = $options['activity_area'];
+            $qb->andWhere('p.idactivityarea = :activity_area');
+            $qb->setParameter('activity_area', $activityArea);
+        }
+        return $qb->getQuery()->getResult();
+
+    }
+
     // /**
     //  * @return Prospect[] Returns an array of Prospect objects
     //  */

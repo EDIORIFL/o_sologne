@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -45,16 +46,16 @@ class ProspectStatus
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="createdat", type="datetime", nullable=false, options={"default"="2016-01-01 00:00:00"})
+     * @ORM\Column(name="createdat", type="datetime", nullable=false})
      */
-    private $createdat = '2016-01-01 00:00:00';
+    private $createdat;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updatedat", type="datetime", nullable=false, options={"default"="2016-01-01 00:00:00"})
+     * @ORM\Column(name="updatedat", type="datetime", nullable=false)
      */
-    private $updatedat = '2016-01-01 00:00:00';
+    private $updatedat;
 
     public function getId(): ?int
     {
@@ -97,24 +98,34 @@ class ProspectStatus
         return $this;
     }
 
-    public function getCreatedat(): ?\DateTimeInterface
+    public function getCreatedat(): ?\DateTime
     {
+        if (is_string($this->createdat)) {
+            $datified = new DateTime($this->createdat);
+            $this->setCreatedat($datified);
+            return $datified;
+        }
         return $this->createdat;
     }
 
-    public function setCreatedat(\DateTimeInterface $createdat): self
+    public function setCreatedat(\DateTime $createdat): self
     {
         $this->createdat = $createdat;
 
         return $this;
     }
 
-    public function getUpdatedat(): ?\DateTimeInterface
+    public function getUpdatedat(): ?\DateTime
     {
+        if (is_string($this->updatedat)) {
+            $datified = new DateTime($this->updatedat);
+            $this->setUpdatedat($datified);
+            return $datified;
+        }
         return $this->updatedat;
     }
 
-    public function setUpdatedat(\DateTimeInterface $updatedat): self
+    public function setUpdatedat(\DateTime $updatedat): self
     {
         $this->updatedat = $updatedat;
 

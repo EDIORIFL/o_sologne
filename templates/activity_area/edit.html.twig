@@ -1,13 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit ActivityArea{% endblock %}
+{% block title %}Editer le secteur d'activité{% endblock %}
 
 {% block body %}
-    <h1>Edit ActivityArea</h1>
-
-    {{ include('activity_area/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('activity_area_index') }}">back to list</a>
+    <h1>Editer le secteur d'activité</h1>
+    <a class="d-inline-block btn btn-primary" href="{{ path('activity_area_index') }}"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
+    {{ include('activity_area/_form.html.twig', {'button_label': 'Enregistrer'}) }}
 
     {{ include('activity_area/_delete_form.html.twig') }}
 {% endblock %}

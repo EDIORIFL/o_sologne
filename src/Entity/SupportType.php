@@ -45,16 +45,16 @@ class SupportType
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="createdat", type="datetime", nullable=false, options={"default"="2016-01-01 00:00:00"})
+     * @ORM\Column(name="createdat", type="datetime", nullable=false)
      */
-    private $createdat = '2016-01-01 00:00:00';
+    private $createdat;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updatedat", type="datetime", nullable=false, options={"default"="2016-01-01 00:00:00"})
+     * @ORM\Column(name="updatedat", type="datetime", nullable=false)
      */
-    private $updatedat = '2016-01-01 00:00:00';
+    private $updatedat;
 
     public function getId(): ?int
     {

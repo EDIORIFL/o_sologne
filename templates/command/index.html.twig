@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Command index{% endblock %}
+{% block title %}Liste des commandes{% endblock %}
 
 {% block body %}
-    <h1>Command index</h1>
-    <a href="{{ path('command_new') }}">Create new</a>
+    <h1>Liste des commandes</h1>
+    <a href="{{ path('command_new') }}" class="btn btn-primary">Ajouter une commande</a>
 
     <div class="row">
 		<div class="col-12">
@@ -12,34 +12,50 @@
 				{% for command in commands %}
 					<li class="list-group-item prospects-item">
 						<div class="row prospects-item-row">
-							<div class="col-7">
-								<strong>{{ prospect.name }}</strong>
+							<div class="col-4">
+							{% if command.prospect is not null %}
+								<strong>{{ command.prospect.name }}</strong>
 								<br>
-								<small>{{ prospect.siret }}</small>
+								<small>{{ command.datesigned|date('d/m/Y') }}</small>
+							{% endif %}
 							</div>
-							<div class="col-5">
+							<div class="col-4">
+								<p>
+								RIB : {{ command.rib }}<br>
+								{% if command.support is not null %}
+								Support : {{ command.support.supporttype.label }}<br>
+								Date : {{ command.support.label }}
+								{% endif %}
+								</p>
+							</div>
+							<div class="col-4">
 								<ul class="list-unstyled d-flex flex-row">
 									<li class="prospects-item-link">
-										<a href="{{ path('prospect_show', {id:prospect.id}) }}">
+										<a href="{{ path('command_show', {id:command.id}) }}">
 											<i class="far fa-eye"></i>
 											Voir</a>
 									</li>
 									<li class="prospects-item-link">
-										<a href="{{ path('prospect_edit', {id:prospect.id}) }}">
+										<a href="{{ path('command_edit', {id:command.id}) }}">
 											<i class="far fa-edit"></i>
 											Editer</a>
 									</li>
 									<li class="prospects-item-link">
-										<a href="{{ path('prospect_delete', {id:prospect.id}) }}">
+										<a href="{{ path('command_delete', {id:command.id}) }}">
 											<i class="far fa-trash-alt"></i>
 											Supprimer</a>
 									</li>
-								</li>
-							</ul</div>
+								</ul>
+							</div>
 						</div>
 					</li>
+				{% else %}
+					<p>
+						Aucune commande n'a été trouvée.
+					</p>
 				{% endfor %}
 			</ul>
+			{{ knp_pagination_render(commands) }}
 		</div>
 	</div>
 {% endblock %}

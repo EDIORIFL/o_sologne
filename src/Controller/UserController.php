@@ -9,13 +9,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/user")
- * 
- * @IsGranted("ROLE_ADMIN")
+ * @Security("is_granted('ROLE_SUPERADMIN')")
  */
 class UserController extends AbstractController
 {
@@ -32,14 +31,23 @@ class UserController extends AbstractController
     /**
      * @Route("/new", name="user_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if (in_array(User::ROLE_SUPERADMIN, $user->getRoles())) {
+                $user->setRoles([User::ROLE_SUPERADMIN, User::ROLE_ADMIN, User::ROLE_USER]);
+            } elseif (in_array(User::ROLE_ADMIN, $user->getRoles())) {
+                $user->setRoles([User::ROLE_ADMIN, User::ROLE_USER]);
+            }
             $entityManager = $this->getDoctrine()->getManager();
+            $user
+                ->setPassword($encoder->encodePassword($user, $user->getPassword()))
+                ->setCreatedat(new \DateTime('now'))
+                ->setUpdatedat(new \DateTime('now'));
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -65,12 +73,19 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, User $user): Response
+    public function edit(Request $request, User $user, UserPasswordEncoderInterface $encoder): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if (in_array(User::ROLE_SUPERADMIN, $user->getRoles())) {
+                $user->setRoles([User::ROLE_SUPERADMIN, User::ROLE_ADMIN, User::ROLE_USER]);
+            } elseif (in_array(User::ROLE_ADMIN, $user->getRoles())) {
+                $user->setRoles([User::ROLE_ADMIN, User::ROLE_USER]);
+            }
+            $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
+            $user->setUpdatedat(new \DateTime('now'));
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('user_index');
@@ -87,7 +102,7 @@ class UserController extends AbstractController
      */
     public function delete(Request $request, User $user): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();

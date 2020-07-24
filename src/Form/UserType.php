@@ -31,7 +31,14 @@ class UserType extends AbstractType
                     'class' => ''
                 ] ,
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-check'
+                ],
+                'expanded' => true,
+                'multiple' => true,
+                'choices' => [
+                    'Super administrateur' => User::ROLE_SUPERADMIN,
+                    'Administrateur' => User::ROLE_ADMIN,
+                    'Utilisateur' => User::ROLE_USER
                 ]
             ])
             ->add('password', PasswordType::class, [
@@ -64,19 +71,19 @@ class UserType extends AbstractType
             ->add('iseditable', CheckboxType::class, [
                 'label' => 'Profil éditable ?',
                 'label_attr' => [
-                    'class' => ''
+                    'class' => 'd-inline-block'
                 ],
                 'attr' => [
-                    'class' => 'form-check'
+                    'class' => 'form-check d-inline-block'
                 ]
             ])
             ->add('isactive', CheckboxType::class, [
                 'label' => 'Profil actif ?',
                 'label_attr' => [
-                    'class' => ''
+                    'class' => 'd-inline-block'
                 ],
                 'attr' => [
-                    'class' => 'form-check'
+                    'class' => 'form-check d-inline-block'
                 ]
             ])
         ;

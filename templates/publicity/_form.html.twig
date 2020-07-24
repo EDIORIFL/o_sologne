@@ -1,4 +1,10 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_row(form.prospect) }}
+    {% if publicity.file is not null %}
+        <img src="/files/{{ publicity.filename }}" alt="" class="publicity-edit-file">
+    {% endif %}
+    {{ form_row(form.file) }}
+    {{ form_row(form.isactive) }}
+    {{ form_row(form.iseditable) }}
+    <button class="btn btn-primary d-inline-block mb-1">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}

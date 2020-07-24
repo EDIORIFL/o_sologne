@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use App\Form\ActivityAreaSelectorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,7 +21,7 @@ class ProspectType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('idaccount', EntityType::class, [
+            ->add('user', UserSelectorType::class, [
                 'class' => User::class,
                 'choice_label' => 'name',
                 'choice_value' => 'id',
@@ -30,7 +31,7 @@ class ProspectType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('idactivityarea', EntityType::class, [
+            ->add('activityarea', ActivityAreaSelectorType::class, [
                 'class' => ActivityArea::class,
                 'choice_label' => 'label',
                 'choice_value' => 'id',
@@ -40,7 +41,7 @@ class ProspectType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('idprospectstatus', EntityType::class, [
+            ->add('prospectstatus', ProspectStatusSelectorType::class, [
                 'class' => ProspectStatus::class,
                 'choice_label' => 'label',
                 'choice_value' => 'id',
@@ -104,7 +105,8 @@ class ProspectType extends AbstractType
                 'label_attr' => [],
                 'attr' => [
                     'class' => 'form-control'
-                ]
+                ], 
+                'required' => false
             ])
             ->add('iscustomer', CheckboxType::class, [
                 'label' => 'Est client ?',
@@ -113,7 +115,8 @@ class ProspectType extends AbstractType
                 ],
                 'attr' => [
                     'class' => 'form-check d-inline-block'
-                ]
+                ], 
+                'required' => false
             ])
             ->add('isrefused', CheckboxType::class, [
                 'label' => 'Est refusé ?',
@@ -122,7 +125,8 @@ class ProspectType extends AbstractType
                 ],
                 'attr' => [
                     'class' => 'form-check d-inline-block'
-                ]
+                ], 
+                'required' => false
             ])
             ->add('datecreated', DateType::class, [
                 'widget' => 'single_text',
@@ -147,7 +151,8 @@ class ProspectType extends AbstractType
                 ],
                 'attr' => [
                     'class' => 'form-check d-inline-block'
-                ]
+                ], 
+                'required' => false
             ])
             ->add('iseditable', CheckboxType::class, [
                 'label' => 'Est éditable ?',
@@ -156,7 +161,8 @@ class ProspectType extends AbstractType
                 ],
                 'attr' => [
                     'class' => 'form-check d-inline-block'
-                ]
+                ], 
+                'required' => false
             ]);
     }
 

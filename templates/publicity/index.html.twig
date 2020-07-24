@@ -1,45 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Publicity index{% endblock %}
+{% block title %}Liste des publicités{% endblock %}
 
 {% block body %}
-    <h1>Publicity index</h1>
+    <h1>Liste des publicités</h1>
+    <a href="{{ path('publicity_new') }}" class="btn btn-primary">Ajouter une publicité</a>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Idprospect</th>
-                <th>Filename</th>
-                <th>Isactive</th>
-                <th>Iseditable</th>
-                <th>Createdat</th>
-                <th>Updatedat</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for publicity in publicities %}
-            <tr>
-                <td>{{ publicity.id }}</td>
-                <td>{{ publicity.idprospect }}</td>
-                <td>{{ publicity.filename }}</td>
-                <td>{{ publicity.isactive ? 'Yes' : 'No' }}</td>
-                <td>{{ publicity.iseditable ? 'Yes' : 'No' }}</td>
-                <td>{{ publicity.createdat ? publicity.createdat|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ publicity.updatedat ? publicity.updatedat|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('publicity_show', {'id': publicity.id}) }}">show</a>
-                    <a href="{{ path('publicity_edit', {'id': publicity.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('publicity_new') }}">Create new</a>
+   <div class="row">
+		<div class="col-12">
+			<ul class="list-group">
+				{% for publicity in publicities %}
+					<li class="list-group-item prospects-item">
+						<div class="row prospects-item-row">
+							<div class="col-4">
+								<strong>{{ publicity.prospect ? publicity.prospect.name : '' }}</strong>
+							</div>
+                            <div class="col-4">
+                                <a href="/files/{{ publicity.filename }}" target='_blank' rel="noopener noreferrer">{{ publicity.filename }}</a>
+                            </div>
+							<div class="col-4">
+								<ul class="list-unstyled d-flex flex-row">
+									<li class="prospects-item-link">
+										<a href="{{ path('publicity_show', {id:publicity.id}) }}">
+											<i class="far fa-eye"></i>
+											Voir</a>
+									</li>
+									<li class="prospects-item-link">
+										<a href="{{ path('publicity_edit', {id:publicity.id}) }}">
+											<i class="far fa-edit"></i>
+											Editer</a>
+									</li>
+									<li class="prospects-item-link">
+										<a href="{{ path('publicity_delete', {id:publicity.id}) }}">
+											<i class="far fa-trash-alt"></i>
+											Supprimer</a>
+									</li>
+								</li>
+							</div>
+						</div>
+					</li>
+				{% else %}
+					<p>
+						Aucune publicité n'a été trouvé.
+					</p>
+				{% endfor %}
+			</ul>
+			{{ knp_pagination_render(publicities) }}
+		</div>
+	</div>
 {% endblock %}

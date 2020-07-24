@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New SupportType{% endblock %}
+{% block title %}Nouveau type de support{% endblock %}
 
 {% block body %}
-    <h1>Create new SupportType</h1>
+    <h1>Nouveau type de support</h1>
+    <a class="d-inline-block btn btn-primary" href="{{ path('support_type_index') }}"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
 
     {{ include('support_type/_form.html.twig') }}
-
-    <a href="{{ path('support_type_index') }}">back to list</a>
 {% endblock %}

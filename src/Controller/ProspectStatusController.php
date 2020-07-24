@@ -5,13 +5,16 @@ namespace App\Controller;
 use App\Entity\ProspectStatus;
 use App\Form\ProspectStatusType;
 use App\Repository\ProspectStatusRepository;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * @Route("/prospect/status")
+ * @Security("is_granted('ROLE_USER')")
  */
 class ProspectStatusController extends AbstractController
 {
@@ -35,6 +38,9 @@ class ProspectStatusController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $prospectStatus
+                ->setUpdatedat(new \DateTime('now'))
+                ->setCreatedat(new DateTime('now'));
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($prospectStatus);
             $entityManager->flush();
@@ -67,6 +73,7 @@ class ProspectStatusController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $prospectStatus->setUpdatedat(new \DateTime('now'));
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('prospect_status_index');

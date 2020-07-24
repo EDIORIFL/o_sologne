@@ -1,43 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}SupportType index{% endblock %}
+{% block title %}Liste des types de support
+{% endblock %}
 
 {% block body %}
-    <h1>SupportType index</h1>
+	<h1>Liste des types de support</h1>
+	<a href="{{ path('support_type_new') }}" class="btn btn-primary my-2">Ajouter</a>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Label</th>
-                <th>Isactive</th>
-                <th>Iseditable</th>
-                <th>Createdat</th>
-                <th>Updatedat</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for support_type in support_types %}
-            <tr>
-                <td>{{ support_type.id }}</td>
-                <td>{{ support_type.label }}</td>
-                <td>{{ support_type.isactive ? 'Yes' : 'No' }}</td>
-                <td>{{ support_type.iseditable ? 'Yes' : 'No' }}</td>
-                <td>{{ support_type.createdat ? support_type.createdat|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ support_type.updatedat ? support_type.updatedat|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('support_type_show', {'id': support_type.id}) }}">show</a>
-                    <a href="{{ path('support_type_edit', {'id': support_type.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('support_type_new') }}">Create new</a>
+	<div class="row">
+		<div class="col-12">
+			<ul class="list-group">
+				{% for type in support_types %}
+					<li class="list-group-item prospects-item">
+						<div class="row prospects-item-row">
+							<div class="col-7">
+								<strong>{{ type.label }}</strong>
+							</div>
+							<div class="col-5">
+								<ul class="list-unstyled d-flex flex-row">
+									<li class="prospects-item-link">
+										<a href="{{ path('support_type_show', {id:type.id}) }}">
+											<i class="far fa-eye"></i>
+											Voir</a>
+									</li>
+									<li class="prospects-item-link">
+										<a href="{{ path('support_type_edit', {id:type.id}) }}">
+											<i class="far fa-edit"></i>
+											Editer</a>
+									</li>
+									<li class="prospects-item-link">
+										<a href="{{ path('support_type_delete', {id:type.id}) }}">
+											<i class="far fa-trash-alt"></i>
+											Supprimer</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</li>
+				{% else %}
+					<p>
+						Aucun type de support n'a été trouvé.
+					</p>
+				{% endfor %}
+			</ul>
+			{{ knp_pagination_render(support_types) }}
+		</div>
+	</div>
 {% endblock %}

@@ -1,43 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ActivityArea index{% endblock %}
+{% block title %}Liste des secteurs d'activité
+{% endblock %}
 
 {% block body %}
-    <h1>ActivityArea index</h1>
+	<h1>Liste des secteurs d'activité</h1>
+	<a href="{{ path('activity_area_new') }}" class="btn btn-primary">Ajouter une commande</a>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Label</th>
-                <th>Isactive</th>
-                <th>Iseditable</th>
-                <th>Createdat</th>
-                <th>Updatedat</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for activity_area in activity_areas %}
-            <tr>
-                <td>{{ activity_area.id }}</td>
-                <td>{{ activity_area.label }}</td>
-                <td>{{ activity_area.isactive ? 'Yes' : 'No' }}</td>
-                <td>{{ activity_area.iseditable ? 'Yes' : 'No' }}</td>
-                <td>{{ activity_area.createdat ? activity_area.createdat|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ activity_area.updatedat ? activity_area.updatedat|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('activity_area_show', {'id': activity_area.id}) }}">show</a>
-                    <a href="{{ path('activity_area_edit', {'id': activity_area.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('activity_area_new') }}">Create new</a>
+	<div class="row">
+		<div class="col-12">
+			<ul class="list-group">
+				{% for area in activity_areas %}
+					<li class="list-group-item prospects-item">
+						<div class="row prospects-item-row">
+							<div class="col-4">
+								<strong>{{ area.label }}</strong>
+							</div>
+							<div class="col-4">
+								<ul class="list-unstyled d-flex flex-row">
+									<li class="prospects-item-link">
+										<a href="{{ path('activity_area_show', {id:area.id}) }}">
+											<i class="far fa-eye"></i>
+											Voir</a>
+									</li>
+									<li class="prospects-item-link">
+										<a href="{{ path('activity_area_edit', {id:area.id}) }}">
+											<i class="far fa-edit"></i>
+											Editer</a>
+									</li>
+									<li class="prospects-item-link">
+										<a href="{{ path('activity_area_delete', {id:area.id}) }}">
+											<i class="far fa-trash-alt"></i>
+											Supprimer</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</li>
+				{% else %}
+					<p>
+						Aucun secteur d'activité n'a été trouvé.
+					</p>
+				{% endfor %}
+			</ul>
+			{{ knp_pagination_render(activity_areas) }}
+		</div>
+	</div>
 {% endblock %}

@@ -94,9 +94,9 @@ class Prospect
     /**
      * @var string
      *
-     * @ORM\Column(name="comment", type="text", length=0, nullable=false)
+     * @ORM\Column(name="comment", type="text", length=0, nullable=true)
      */
-    private $comment;
+    private $comment = '';
 
     /**
      * @var bool|null
@@ -143,16 +143,22 @@ class Prospect
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="createdat", type="datetime", nullable=false, options={"default"="2016-01-01 00:00:00"})
+     * @ORM\Column(name="createdat", type="datetime", nullable=false)
      */
-    private $createdat = '2016-01-01 00:00:00';
+    private $createdat;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updatedat", type="datetime", nullable=false, options={"default"="2016-01-01 00:00:00"})
+     * @ORM\Column(name="updatedat", type="datetime", nullable=false)
      */
-    private $updatedat = '2016-01-01 00:00:00';
+    private $updatedat;
+
+    private $user;
+
+    private $activityArea;
+
+    private $prospectStatus;
 
     public function getId(): ?int
     {
@@ -387,5 +393,39 @@ class Prospect
         return $this;
     }
 
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
 
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getActivityArea(): ?ActivityArea
+    {
+        return $this->activityArea;
+    }
+
+    public function setActivityArea(ActivityArea $activityArea)
+    {
+        $this->activityArea = $activityArea;
+
+        return $this;
+    }
+
+    public function getProspectStatus(): ?ProspectStatus
+    {
+        return $this->prospectStatus;
+    }
+
+    public function setProspectStatus(ProspectStatus $prospectStatus)
+    {
+        $this->prospectStatus = $prospectStatus;
+
+        return $this;
+    }
 }

@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New ActivityArea{% endblock %}
+{% block title %}Nouveau secteur d'activité{% endblock %}
 
 {% block body %}
-    <h1>Create new ActivityArea</h1>
+    <h1>Créer un secteur d'activité</h1>
+    <a class="d-inline-block btn btn-primary" href="{{ path('activity_area_index') }}"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
 
     {{ include('activity_area/_form.html.twig') }}
-
-    <a href="{{ path('activity_area_index') }}">back to list</a>
 {% endblock %}

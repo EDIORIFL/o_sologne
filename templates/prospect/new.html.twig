@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Prospect{% endblock %}
+{% block title %}Nouveau prospect{% endblock %}
 
 {% block body %}
-    <h1>Create new Prospect</h1>
+    <h1>Créer un prospect</h1>
+    <a class="d-inline-block btn btn-primary" href="{{ path('prospect_index') }}"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
 
     {{ include('prospect/_form.html.twig') }}
-
-    <a href="{{ path('prospect_index') }}">back to list</a>
 {% endblock %}

@@ -1,43 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ProspectStatus index{% endblock %}
+{% block title %}Statuts de prospects
+{% endblock %}
 
 {% block body %}
-    <h1>ProspectStatus index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Label</th>
-                <th>Isactive</th>
-                <th>Iseditable</th>
-                <th>Createdat</th>
-                <th>Updatedat</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for prospect_status in prospect_statuses %}
-            <tr>
-                <td>{{ prospect_status.id }}</td>
-                <td>{{ prospect_status.label }}</td>
-                <td>{{ prospect_status.isactive ? 'Yes' : 'No' }}</td>
-                <td>{{ prospect_status.iseditable ? 'Yes' : 'No' }}</td>
-                <td>{{ prospect_status.createdat ? prospect_status.createdat|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ prospect_status.updatedat ? prospect_status.updatedat|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('prospect_status_show', {'id': prospect_status.id}) }}">show</a>
-                    <a href="{{ path('prospect_status_edit', {'id': prospect_status.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('prospect_status_new') }}">Create new</a>
+	<h1>Statuts de prospects</h1>
+	<a href="{{ path('prospect_status_new') }}" class="btn btn-primary">Ajouter un statut</a>
+	<div class="row">
+		<div class="col-12">
+			<ul class="list-group">
+				{% for status in prospect_statuses %}
+					<li class="list-group-item prospects-item">
+						<div class="row prospects-item-row">
+							<div class="col-7">
+								<strong>{{ status.label }}</strong>
+							</div>
+							<div class="col-5">
+								<ul class="list-unstyled d-flex flex-row">
+									<li class="prospects-item-link">
+										<a href="{{ path('prospect_status_show', {id:status.id}) }}">
+											<i class="far fa-eye"></i>
+											Voir</a>
+									</li>
+									<li class="prospects-item-link">
+										<a href="{{ path('prospect_status_edit', {id:status.id}) }}">
+											<i class="far fa-edit"></i>
+											Editer</a>
+									</li>
+									<li class="prospects-item-link">
+										<a href="{{ path('prospect_status_delete', {id:status.id}) }}">
+											<i class="far fa-trash-alt"></i>
+											Supprimer</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</li>
+				{% else %}
+					<p>
+						Aucun statut de prospect n'a été trouvé.
+					</p>
+				{% endfor %}
+			</ul>
+			{{ knp_pagination_render(prospect_statuses) }}
+		</div>
+	</div>
 {% endblock %}

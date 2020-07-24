@@ -7,10 +7,13 @@
 	<h1>{{ prospect.name }}</h1>
 
 	<div class="row">
-		<div class="col-8">
+		<div class="col-7">
 			<p class="prospect-infos">
 				N° Siret :
 				{{ prospect.siret }}<br>
+				<strong>{{ prospect.activityArea.label }}</strong><br>
+				Responsable : 
+				{{ prospect.user.name }}<br>
 				Contact :
 				{{ prospect.manager }}<br>
 				Adresse :
@@ -22,13 +25,15 @@
 				Adresse email :
 				<a href="mailto:{{ prospect.email }}">{{ prospect.email }}</a><br>
 				Commentaires :
-				{{ prospect.comment }}
+				{{ prospect.comment }}<br>
+				Statut : 
+				{{ prospect.prospectStatus.label }}
 			</p>
 		</div>
-		<div class="col-4">
+		<div class="col-5">
 			<a class="d-inline-block btn btn-primary" href="{{ path('prospect_index') }}"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
 			<a class="d-inline-block btn btn-primary" href="{{ path('prospect_edit', {'id': prospect.id}) }}"><i class="far fa-edit"></i> Editer</a>
-      {{ include('prospect/_delete_form.html.twig') }}
+      		{{ include('prospect/_delete_form.html.twig') }}
 		</div>
 	</div>
 

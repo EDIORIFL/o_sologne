@@ -1,50 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Support{% endblock %}
+{% block title %}Support
+{% endblock %}
 
 {% block body %}
-    <h1>Support</h1>
+	<h1>Support</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ support.id }}</td>
-            </tr>
-            <tr>
-                <th>Idsupporttype</th>
-                <td>{{ support.idsupporttype }}</td>
-            </tr>
-            <tr>
-                <th>Label</th>
-                <td>{{ support.label }}</td>
-            </tr>
-            <tr>
-                <th>Dateedited</th>
-                <td>{{ support.dateedited ? support.dateedited|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Isactive</th>
-                <td>{{ support.isactive ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Iseditable</th>
-                <td>{{ support.iseditable ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Createdat</th>
-                <td>{{ support.createdat ? support.createdat|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Updatedat</th>
-                <td>{{ support.updatedat ? support.updatedat|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ support.id }}</td>
+			</tr>
+			<tr>
+				<th>Type de support</th>
+				<td>{{ support.supportType.label }}</td>
+			</tr>
+			<tr>
+				<th>Label</th>
+				<td>{{ support.label }}</td>
+			</tr>
+			<tr>
+				<th>Dernière édition</th>
+				<td>{{ support.dateedited ? support.dateedited|date('d/m/Y') : '' }}</td>
+			</tr>
+			<tr>
+				<th>Est actif</th>
+				<td>{{ support.isactive ? 'Oui' : 'Non' }}</td>
+			</tr>
+			<tr>
+				<th>Est éditable</th>
+				<td>{{ support.iseditable ? 'Oui' : 'Non' }}</td>
+			</tr>
+		</tbody>
+	</table>
+			<a class="d-inline-block btn btn-primary" href="{{ path('support_index') }}"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
+			<a class="d-inline-block btn btn-primary" href="{{ path('support_edit', {'id': support.id}) }}"><i class="far fa-edit"></i> Editer</a>
 
-    <a href="{{ path('support_index') }}">back to list</a>
-
-    <a href="{{ path('support_edit', {'id': support.id}) }}">edit</a>
-
-    {{ include('support/_delete_form.html.twig') }}
+	{{ include('support/_delete_form.html.twig') }}
 {% endblock %}

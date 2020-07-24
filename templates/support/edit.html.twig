@@ -1,13 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Support{% endblock %}
+{% block title %}Editer un support{% endblock %}
 
 {% block body %}
-    <h1>Edit Support</h1>
+    <h1>Editer un support</h1>
+    <a class="d-inline-block btn btn-primary" href="{{ path('support_index') }}"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
 
-    {{ include('support/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('support_index') }}">back to list</a>
+    {{ include('support/_form.html.twig', {'button_label': 'Enregistrer'}) }}
 
     {{ include('support/_delete_form.html.twig') }}
 {% endblock %}

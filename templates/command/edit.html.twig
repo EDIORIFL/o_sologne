@@ -1,13 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Command{% endblock %}
+{% block title %}Editer la commande{% endblock %}
 
 {% block body %}
-    <h1>Edit Command</h1>
-
-    {{ include('command/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('command_index') }}">back to list</a>
+    <h1>Editer la commande</h1>
+    <a class="d-inline-block btn btn-primary" href="{{ path('command_index') }}"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
+    {{ include('command/_form.html.twig', {'button_label': 'Enregistrer'}) }}
 
     {{ include('command/_delete_form.html.twig') }}
 {% endblock %}

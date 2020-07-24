@@ -1,13 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit ProspectStatus{% endblock %}
+{% block title %}Editer le statut{% endblock %}
 
 {% block body %}
-    <h1>Edit ProspectStatus</h1>
+    <h1>Editer le statut</h1>
+    <a class="d-inline-block btn btn-primary" href="{{ path('prospect_status_index') }}"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
 
-    {{ include('prospect_status/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('prospect_status_index') }}">back to list</a>
+    {{ include('prospect_status/_form.html.twig', {'button_label': 'Enregistrer'}) }}
 
     {{ include('prospect_status/_delete_form.html.twig') }}
 {% endblock %}

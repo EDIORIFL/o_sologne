@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Command{% endblock %}
+{% block title %}Nouvelle commande{% endblock %}
 
 {% block body %}
-    <h1>Create new Command</h1>
+    <h1>Créer une commande</h1>
+    <a class="d-inline-block btn btn-primary" href="{{ path('command_index') }}"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
 
     {{ include('command/_form.html.twig') }}
-
-    <a href="{{ path('command_index') }}">back to list</a>
 {% endblock %}

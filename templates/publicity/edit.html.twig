@@ -1,13 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Publicity{% endblock %}
+{% block title %}Editer la publicité{% endblock %}
 
 {% block body %}
-    <h1>Edit Publicity</h1>
+    <h1>Editer la publicité</h1>
+    <a class="d-inline-block btn btn-primary" href="{{ path('publicity_index') }}"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
 
-    {{ include('publicity/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('publicity_index') }}">back to list</a>
+    {{ include('publicity/_form.html.twig', {'button_label': 'Enregistrer'}) }}
 
     {{ include('publicity/_delete_form.html.twig') }}
 {% endblock %}
