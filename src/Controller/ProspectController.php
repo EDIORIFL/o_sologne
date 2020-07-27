@@ -2,14 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Command;
 use App\Entity\Prospect;
 use App\Form\ProspectType;
 use App\Form\SearchType;
 use App\Repository\ActivityAreaRepository;
+use App\Repository\CommandRepository;
 use App\Repository\ProspectRepository;
 use App\Repository\ProspectStatusRepository;
 use App\Repository\PublicityRepository;
 use App\Repository\UserRepository;
+use App\Service\Gulliver;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,14 +35,18 @@ class ProspectController extends AbstractController
         ProspectRepository $prospectRepository,
         ActivityAreaRepository $activityAreaRepository,
         ProspectStatusRepository $prospectStatusRepository,
+        CommandRepository $commandRepository,
         PaginatorInterface $paginator
     ): Response {
+        $gulliver = new Gulliver($commandRepository, $prospectRepository);
+        \dd($commandRepository->findBySupport(5));
         $form = $this->createForm(SearchType::class);
         $datas = $prospectRepository->findAll();
         $form->handleRequest($request);
+        $filters = [];
         if ($form->isSubmitted() && $form->isValid()) {
-            $datas = $form->getData();
-            $datas = $prospectRepository->findBySearchForm($datas);
+            $filters = $form->getData();
+            $datas = $prospectRepository->findBySearchForm($filters);
         }
         foreach ($datas as $prospect) {
             $activityArea = $activityAreaRepository->findOneBy(['id' => $prospect->getIdactivityarea()]);
@@ -48,7 +55,10 @@ class ProspectController extends AbstractController
                 ->setActivityArea($activityArea ? $activityArea : null)
                 ->setProspectStatus($prospectStatus);
         }
-        $prospects = $paginator->paginate($datas, $request->query->getInt('page', 1), 20);
+        if (!$filters['display']) {
+            $filters['display'] = 20;
+        }
+        $prospects = $paginator->paginate($datas, $request->query->getInt('page', 1), $filters['display']);
         return $this->render('prospect/index.html.twig', [
             'prospects' => $prospects,
             'form' => $form->createView()

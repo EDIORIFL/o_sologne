@@ -6,6 +6,13 @@
 
 {% block body %}
 	<div class="login row w-100 justify-content-center align-items-center">
+		<div class="col-12">
+			<div class="row justify-content-center align-items-center">
+				<div class="login-img col-4">
+					<img src="{{ asset('build/logo.jpg') }}" alt="">
+				</div>
+			</div>
+		</div>
 		<div class="login-container col-4">
 			<form method="post" class="login-form">
 				{% if error %}
@@ -14,7 +21,7 @@
 
 				{% if app.user %}
 					<div class="mb-3">
-						Vous êtes connecté(e) en tant que 
+						Vous êtes connecté(e) en tant que
 						{{ app.user.username }},
 						<a href="{{ path('app_logout') }}">Se déconnecter</a>
 					</div>

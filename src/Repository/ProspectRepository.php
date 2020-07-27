@@ -22,10 +22,10 @@ class ProspectRepository extends ServiceEntityRepository
     public function findBySearchForm(array $options)
     {
         $qb = $this->createQueryBuilder('p');
-        if ($options['name'] != null) {
-            $name = $options['name'];
-            $qb->andWhere('p.name LIKE :name');
-            $qb->setParameter('name', "%$name%");
+        if ($options['date_created'] != null) {
+            $date_created = $options['date_created'];
+            $qb->andWhere('p.datecreated < :date_created');
+            $qb->setParameter('date_created', "$date_created");
         }
         if ($options['postal_code'] != null) {
             $postalCode = $options['postal_code'];
@@ -37,15 +37,15 @@ class ProspectRepository extends ServiceEntityRepository
             $qb->andWhere('p.idactivityarea = :activity_area');
             $qb->setParameter('activity_area', $activityArea);
         }
-        if ($options['contact'] != null) {
-            $contact = $options['contact'];
-            $qb->andWhere('p.manager LIKE :contact');
-            $qb->setParameter('contact', $contact);
+        if ($options['status'] != null) {
+            $status = $options['status'];
+            $qb->andWhere('p.idprospectstatus = :status');
+            $qb->setParameter('status', $status);
         }
-        if ($options['siret'] != null) {
-            $siret = $options['siret'];
-            $qb->andWhere('p.manager LIKE :siret');
-            $qb->setParameter('siret', $siret);
+        if ($options['support'] != null) {
+            $support = $options['support'];
+            $qb->andWhere('p.idsupport = :support');
+            $qb->setParameter('support', $support);
         }
         return $qb->getQuery()->getResult();
 

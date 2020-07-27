@@ -25,7 +25,7 @@ class ProspectType extends AbstractType
                 'class' => User::class,
                 'choice_label' => 'name',
                 'choice_value' => 'id',
-                'label' => 'Responsable',
+                'label' => 'Responsable au sein de l\'agence',
                 'label_attr' => [],
                 'attr' => [
                     'class' => 'form-control'
@@ -59,7 +59,7 @@ class ProspectType extends AbstractType
                 ]
             ])
             ->add('manager', TextType::class, [
-                'label' => 'Contact',
+                'label' => 'Manager',
                 'label_attr' => [],
                 'attr' => [
                     'class' => 'form-control'

@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Command;
+use App\Entity\Prospect;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,6 +19,27 @@ class CommandRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Command::class);
+    }
+
+    public function findByProspect($id)
+    {
+        $qb = $this->createQueryBuilder('c');
+        $qb->where('c.idprospect = :id')
+            ->groupBy('c.id')
+            ->addGroupBy('c.idsupport')
+            ->setParameter(':id', $id);
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findBySupport($id)
+    {
+        $qb = $this->createQueryBuilder('c');
+        $qb->where('c.idsupport = :id')
+            ->setParameter('id', $id)
+            ->groupBy('c.id')
+            ->addGroupBy('c.idprospect')
+            ->leftJoin(Prospect::class, 'p', Join::WITH, 'c.idprospect = p.id');
+        return $qb->getQuery()->getResult();
     }
 
     // /**

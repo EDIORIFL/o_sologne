@@ -3,7 +3,14 @@
 namespace App\Form;
 
 use App\Entity\ActivityArea;
+use App\Entity\ProspectStatus;
+use App\Entity\SupportType;
+use App\Form\ActivityAreaSelectorType;
+use App\Form\SupportTypeSelectorType;
+use App\Form\ProspectStatusSelectorType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,6 +20,16 @@ class SearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('postal_code', TextType::class, [
+                'label_attr' => [
+                    'class' => 'd-none'
+                ],
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Zone géographique'
+                ],
+                'required' => false,
+            ])
             ->add('activity_area', ActivityAreaSelectorType::class, [
                 'class' => ActivityArea::class,
                 'choice_label' => 'label',
@@ -26,27 +43,21 @@ class SearchType extends AbstractType
                 ],
                 'required' => false,
             ])
-            ->add('postal_code', TextType::class, [
+            ->add('date_created', DateType::class, [
                 'label_attr' => [
                     'class' => 'd-none'
                 ],
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Code postal'
+                    'placeholder' => 'Date de création'
                 ],
+                'widget' => 'single_text',
                 'required' => false,
             ])
-            ->add('name', TextType::class, [
-                'label_attr' => [
-                    'class' => 'd-none'
-                ],
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Nom du prospect'
-                ],
-                'required' => false,
-            ])
-            ->add('contact', TextType::class, [
+            ->add('status', ProspectStatusSelectorType::class, [
+                'class' => ProspectStatus::class,
+                'choice_label' => 'label',
+                'choice_value' => 'id',
                 'label_attr' => [
                     'class' => 'd-none'
                 ],
@@ -56,18 +67,28 @@ class SearchType extends AbstractType
                 ],
                 'required' => false,
             ])
-            ->add('siret', TextType::class, [
+            ->add('support', SupportTypeSelectorType::class, [
+                'class' => SupportType::class,
+                'choice_label' => 'label',
+                'choice_value' => 'id',
                 'label_attr' => [
                     'class' => 'd-none'
                 ],
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Siret'
+                    'placeholder' => 'Support'
                 ],
                 'required' => false,
             ])
-            ->setMethod('GET')
-        ;
+            ->add('display', ChoiceType::class, [
+                'choices' => [
+                    10 => 10,
+                    20 => 20,
+                    50 => 50,
+                    100 => 100
+                ]
+            ])
+            ->setMethod('GET');
     }
 
     public function configureOptions(OptionsResolver $resolver)

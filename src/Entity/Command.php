@@ -24,14 +24,16 @@ class Command
     /**
      * @var int
      *
-     * @ORM\Column(name="idprospect", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Prospect", inversedBy="commands")
+     * @ORM\JoinColumn(name="idprospect", type="integer", nullable=false)
      */
     private $idprospect;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="idsupport", type="integer", nullable=false, options={"default"="1"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Support", inversedBy="commands")
+     * @ORM\JoinColumn(name="idsupport", type="integer", nullable=false, options={"default"="1"})
      */
     private $idsupport = '1';
 

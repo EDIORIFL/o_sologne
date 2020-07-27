@@ -1,8 +1,12 @@
 .login {
-    height: 100vh;
     &-form {
         border: 1px solid $primary;
         padding: .5rem 1rem;
         background: #ffffff;
+    }
+    &-img {
+        img {
+            width: 100%;
+        }
     }
 }

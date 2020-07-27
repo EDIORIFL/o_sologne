@@ -22,6 +22,19 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+    # App\Repository\:
+    #     resource: ../Repository/*
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+framework :
+    session:
+        # enables the support of sessions in the app
+        enabled: true
+        # ID of the service used for session storage.
+        # NULL means that Symfony uses PHP default session mechanism
+        handler_id: null
+        # improves the security of the cookies used for sessions
+        cookie_secure: 'auto'
+        cookie_samesite: 'lax'
