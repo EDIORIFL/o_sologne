@@ -35,11 +35,8 @@ class ProspectController extends AbstractController
         ProspectRepository $prospectRepository,
         ActivityAreaRepository $activityAreaRepository,
         ProspectStatusRepository $prospectStatusRepository,
-        CommandRepository $commandRepository,
         PaginatorInterface $paginator
     ): Response {
-        $gulliver = new Gulliver($commandRepository, $prospectRepository);
-        // dd($commandRepository->findBySupport(5));
         $form = $this->createForm(SearchType::class);
         $datas = [];
         $form->handleRequest($request);

@@ -26,21 +26,18 @@
 				<div class="col-2">
 					{{ form_row(form.date_created) }}
 				</div>
-				<div class="col-2">
-					{{ form_row(form.display) }}
-				</div>
 				<div class="col-12 d-flex justify-content-center">
+					{{ form_row(form.display) }}
 					<button class="btn btn-primary d-inline-block mt-2 mr-1">
 						<i class="fas fa-search"></i>
 						{{ button_label|default('Rechercher') }}</button>
-				<button id="reset-form" class="btn btn-primary d-inline-block mt-2">
-					<i class="fas fa-undo"></i>
-					Réinitialiser les filtres</button>
+					<button id="reset-form" class="btn btn-primary d-inline-block mt-2">
+						<i class="fas fa-undo"></i>
+						Réinitialiser les filtres</button>
 				</div>
 			</div>
 			{{ form_end(form) }}
-			<div class="col-12 text-center">
-			</div>
+			<div class="col-12 text-center"></div>
 			<ul class="list-group">
 				{% for prospect in prospects %}
 					<li class="list-group-item prospects-item">
@@ -123,7 +120,7 @@ defaultOption.innerText = 'Tous les secteurs d\'activité';
             @desc Reset all filters
             */
 function resetFilters(e) {
-	e.preventDefault();
+e.preventDefault();
 activitySelect.value = '';
 prospectName.value = '';
 postalCode.value = '';
