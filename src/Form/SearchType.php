@@ -4,9 +4,9 @@ namespace App\Form;
 
 use App\Entity\ActivityArea;
 use App\Entity\ProspectStatus;
-use App\Entity\SupportType;
+use App\Entity\Support;
 use App\Form\ActivityAreaSelectorType;
-use App\Form\SupportTypeSelectorType;
+use App\Form\SupportSelectorType;
 use App\Form\ProspectStatusSelectorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -22,7 +22,7 @@ class SearchType extends AbstractType
         $builder
             ->add('postal_code', TextType::class, [
                 'label_attr' => [
-                    'class' => 'd-none'
+                    'class' => 'position-absolute'
                 ],
                 'attr' => [
                     'class' => 'form-control',
@@ -35,7 +35,7 @@ class SearchType extends AbstractType
                 'choice_label' => 'label',
                 'choice_value' => 'id',
                 'label_attr' => [
-                    'class' => 'd-none'
+                    'class' => 'position-absolute'
                 ],
                 'attr' => [
                     'class' => 'form-control',
@@ -45,7 +45,7 @@ class SearchType extends AbstractType
             ])
             ->add('date_created', DateType::class, [
                 'label_attr' => [
-                    'class' => 'd-none'
+                    'class' => 'position-absolute'
                 ],
                 'attr' => [
                     'class' => 'form-control',
@@ -59,7 +59,7 @@ class SearchType extends AbstractType
                 'choice_label' => 'label',
                 'choice_value' => 'id',
                 'label_attr' => [
-                    'class' => 'd-none'
+                    'class' => 'position-absolute'
                 ],
                 'attr' => [
                     'class' => 'form-control',
@@ -67,12 +67,12 @@ class SearchType extends AbstractType
                 ],
                 'required' => false,
             ])
-            ->add('support', SupportTypeSelectorType::class, [
-                'class' => SupportType::class,
+            ->add('support', SupportSelectorType::class, [
+                'class' => Support::class,
                 'choice_label' => 'label',
                 'choice_value' => 'id',
                 'label_attr' => [
-                    'class' => 'd-none'
+                    'class' => 'position-absolute'
                 ],
                 'attr' => [
                     'class' => 'form-control',
@@ -81,6 +81,13 @@ class SearchType extends AbstractType
                 'required' => false,
             ])
             ->add('display', ChoiceType::class, [
+                'label' => 'Nombre de prospects par page',
+                'label_attr' => [
+                    'class' => 'position-absolute'
+                ],
+                'attr' => [
+                    'class' => 'form-control'
+                ],
                 'choices' => [
                     10 => 10,
                     20 => 20,

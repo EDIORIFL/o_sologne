@@ -39,14 +39,25 @@ class ProspectController extends AbstractController
         PaginatorInterface $paginator
     ): Response {
         $gulliver = new Gulliver($commandRepository, $prospectRepository);
-        \dd($commandRepository->findBySupport(5));
+        // dd($commandRepository->findBySupport(5));
         $form = $this->createForm(SearchType::class);
-        $datas = $prospectRepository->findAll();
+        $datas = [];
         $form->handleRequest($request);
         $filters = [];
         if ($form->isSubmitted() && $form->isValid()) {
             $filters = $form->getData();
             $datas = $prospectRepository->findBySearchForm($filters);
+            // if ($filters['support']) {
+            //     $commands = $commandRepository->findBySupport($filters['support']);
+            //     foreach ($commands as $command) {
+            //         $datas[] = $command->getIdprospect();
+            //         $datas = array_unique($datas);
+            //     }
+            // }
+            // dd($datas);
+        }
+        else {
+            $datas = $prospectRepository->findAll();
         }
         foreach ($datas as $prospect) {
             $activityArea = $activityAreaRepository->findOneBy(['id' => $prospect->getIdactivityarea()]);
@@ -55,7 +66,8 @@ class ProspectController extends AbstractController
                 ->setActivityArea($activityArea ? $activityArea : null)
                 ->setProspectStatus($prospectStatus);
         }
-        if (!$filters['display']) {
+         
+        if (!isset($filters['display'])) {
             $filters['display'] = 20;
         }
         $prospects = $paginator->paginate($datas, $request->query->getInt('page', 1), $filters['display']);

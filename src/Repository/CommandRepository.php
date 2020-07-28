@@ -31,15 +31,17 @@ class CommandRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findBySupport($id)
+    public function addSupportFilter($id, $qb = null)
     {
-        $qb = $this->createQueryBuilder('c');
+        if (!$qb || $qb === null) {
+            $qb = $this->createQueryBuilder('c');
+        }
         $qb->where('c.idsupport = :id')
             ->setParameter('id', $id)
             ->groupBy('c.id')
-            ->addGroupBy('c.idprospect')
-            ->leftJoin(Prospect::class, 'p', Join::WITH, 'c.idprospect = p.id');
-        return $qb->getQuery()->getResult();
+            ->addGroupBy('c.idprospect');
+        return $qb;
+        // return $qb->getQuery()->getResult();
     }
 
     // /**

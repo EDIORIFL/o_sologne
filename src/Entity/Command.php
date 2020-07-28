@@ -25,7 +25,7 @@ class Command
      * @var int
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Prospect", inversedBy="commands")
-     * @ORM\JoinColumn(name="idprospect", type="integer", nullable=false)
+     * @ORM\JoinColumn(name="idprospect", nullable=false)
      */
     private $idprospect;
 
@@ -33,7 +33,7 @@ class Command
      * @var int
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Support", inversedBy="commands")
-     * @ORM\JoinColumn(name="idsupport", type="integer", nullable=false, options={"default"="1"})
+     * @ORM\JoinColumn(name="idsupport", nullable=false)
      */
     private $idsupport = '1';
 
@@ -130,7 +130,7 @@ class Command
         return $this->id;
     }
 
-    public function getIdprospect(): ?int
+    public function getIdprospect()
     {
         return $this->idprospect;
     }
