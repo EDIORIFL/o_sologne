@@ -135,19 +135,19 @@ class Command
         return $this->idprospect;
     }
 
-    public function setIdprospect(int $idprospect): self
+    public function setIdprospect($idprospect): self
     {
         $this->idprospect = $idprospect;
 
         return $this;
     }
 
-    public function getIdsupport(): ?int
+    public function getIdsupport()
     {
         return $this->idsupport;
     }
 
-    public function setIdsupport(int $idsupport): self
+    public function setIdsupport($idsupport): self
     {
         $this->idsupport = $idsupport;
 
