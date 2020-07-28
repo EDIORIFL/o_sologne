@@ -41,7 +41,7 @@
 			</div>
 			{{ form_end(form) }}
 			<div class="col-12 text-center"></div>
-			<table class="table table-bordered">
+			<table class="table table-bordered table-hover">
 				<thead>
 					<tr>
 						<th scope="col">Nom</th>
@@ -49,16 +49,25 @@
 						<th scope="col">Responsable</th>
 						<th scope="col">Etat</th>
 						<th scope="col">Date de création</th>
+						<th scope="col">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
 					{% for prospect in prospects %}
 						<tr>
-							<td>{{ prospect.name }}</td>
-							<td>{{ prospect.telephone }}</td>
-							<td>{{ prospect.manager }}</td>
-							<td>{{ prospect.prospectStatus ? prospect.prospectStatus.label : 'Non défini' }}</td>
-							<td>{{ prospect.datecreated|date('d/m/Y') }}</td>
+							<td class="align-middle">{{ prospect.name }}</td>
+							<td class="align-middle">{{ prospect.telephone }}</td>
+							<td class="align-middle">{{ prospect.manager }}</td>
+							<td class="align-middle">{{ prospect.prospectStatus ? prospect.prospectStatus.label : 'Non défini' }}</td>
+							<td class="align-middle">{{ prospect.datecreated|date('d/m/Y') }}</td>
+							<td class="align-middle">
+								<a href="{{ path('prospect_show', {'id': prospect.id}) }}">
+									<i class="far fa-eye"></i>
+									Voir</a><br>
+								<a href="{{ path('prospect_edit', {'id': prospect.id}) }}">
+									<i class="far fa-edit"></i>
+									Editer</a>
+							</td>
 						</tr>
 					{% endfor %}
 				</tbody>
@@ -75,86 +84,86 @@
 
 	<script>
 		function prospectsIndex() {
-			var activitySelect = document.getElementById('search_activity_area');
-			var postalCode = document.getElementById('search_postal_code');
-			var statusSelect = document.getElementById('search_status');
-			var supportSelect = document.getElementById('search_support');
-			var dateCreatedPicker = document.getElementById('search_date_created');
-			var resetFiltersButton = document.getElementById('reset-form');
+var activitySelect = document.getElementById('search_activity_area');
+var postalCode = document.getElementById('search_postal_code');
+var statusSelect = document.getElementById('search_status');
+var supportSelect = document.getElementById('search_support');
+var dateCreatedPicker = document.getElementById('search_date_created');
+var resetFiltersButton = document.getElementById('reset-form');
 
-			/**
+/**
             @desc Custom default option for activities select
             */
-			function allActivitiesSelectLabel() {
-				if (! activitySelect) {
-					return;
-				}
+function allActivitiesSelectLabel() {
+if (! activitySelect) {
+return;
+}
 
-				var defaultOption = activitySelect.querySelector('option[value=""]');
+var defaultOption = activitySelect.querySelector('option[value=""]');
 
-				if (! defaultOption) {
-					return;
-				}
+if (! defaultOption) {
+return;
+}
 
-				defaultOption.innerText = 'Tous les secteurs d\'activité';
-			}
+defaultOption.innerText = 'Tous les secteurs d\'activité';
+}
 
-			/**
+/**
             @desc Custom default option for activities select
             */
-			function allStatusesSelectLabel() {
-				if (! statusSelect) {
-					return;
-				}
+function allStatusesSelectLabel() {
+if (! statusSelect) {
+return;
+}
 
-				var defaultOption = statusSelect.querySelector('option[value=""]');
+var defaultOption = statusSelect.querySelector('option[value=""]');
 
-				if (! defaultOption) {
-					return;
-				}
+if (! defaultOption) {
+return;
+}
 
-				defaultOption.innerText = 'Tous les statuts';
-			}
+defaultOption.innerText = 'Tous les statuts';
+}
 
-			/**
+/**
             @desc Custom default option for activities select
             */
-			function allSupportsSelectLabel() {
-				if (! supportSelect) {
-					return;
-				}
+function allSupportsSelectLabel() {
+if (! supportSelect) {
+return;
+}
 
-				var defaultOption = supportSelect.querySelector('option[value=""]');
+var defaultOption = supportSelect.querySelector('option[value=""]');
 
-				if (! defaultOption) {
-					return;
-				}
+if (! defaultOption) {
+return;
+}
 
-				defaultOption.innerText = 'Tous les supports';
-			}
+defaultOption.innerText = 'Tous les supports';
+}
 
-			/**
+/**
             @desc Reset all filters
             */
-			function resetFilters(e) {
-				e.preventDefault();
-				activitySelect.value = '';
-				postalCode.value = '';
-				statusSelect.value = '';
-				supportSelect.value = '';
-				dateCreatedPicker.value = '';
-			}
+function resetFilters(e) {
+e.preventDefault();
+activitySelect.value = '';
+postalCode.value = '';
+statusSelect.value = '';
+supportSelect.value = '';
+dateCreatedPicker.value = '';
+}
 
-			allActivitiesSelectLabel();
-			allStatusesSelectLabel();
-			allSupportsSelectLabel();
+allActivitiesSelectLabel();
+allStatusesSelectLabel();
+allSupportsSelectLabel();
 
-			if (! resetFiltersButton) {
-				return;
-			}
-			resetFiltersButton.addEventListener('click', resetFilters);
-		}
+if (! resetFiltersButton) {
+return;
+}
+resetFiltersButton.addEventListener('click', resetFilters);
+}
 
-		prospectsIndex();
+prospectsIndex();
 	</script>
 {% endblock %}
