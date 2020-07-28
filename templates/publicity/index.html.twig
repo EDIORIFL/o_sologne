@@ -1,48 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des publicités{% endblock %}
+{% block title %}Liste des publicités
+{% endblock %}
 
 {% block body %}
-    <h1>Liste des publicités</h1>
-    <a href="{{ path('publicity_new') }}" class="btn btn-primary">Ajouter une publicité</a>
-
-   <div class="row">
-		<div class="col-12">
-			<ul class="list-group">
-				{% for publicity in publicities %}
-					<li class="list-group-item prospects-item">
-						<div class="row prospects-item-row">
-							<div class="col-4">
-								<strong>{{ publicity.prospect ? publicity.prospect.name : '' }}</strong>
-							</div>
-                            <div class="col-4">
-                                <a href="/files/{{ publicity.filename }}" target='_blank' rel="noopener noreferrer">{{ publicity.filename }}</a>
-                            </div>
-							<div class="col-4">
-								<ul class="list-unstyled d-flex flex-row">
-									<li class="prospects-item-link">
-										<a href="{{ path('publicity_show', {id:publicity.id}) }}">
-											<i class="far fa-eye"></i>
-											Voir</a>
-									</li>
-									<li class="prospects-item-link">
-										<a href="{{ path('publicity_edit', {id:publicity.id}) }}">
-											<i class="far fa-edit"></i>
-											Editer</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</li>
-				{% else %}
-					<p>
-						Aucune publicité n'a été trouvé.
-					</p>
-				{% endfor %}
-			</ul>
-			{% if publicities is not null %}
-			{{ knp_pagination_render(publicities) }}
-			{% endif %}
-		</div>
-	</div>
+	<h1>Liste des publicités</h1>
+	<a href="{{ path('publicity_new') }}" class="btn btn-primary">Ajouter une publicité</a>
+	<table class="table table-bordered table-hover">
+		<thead>
+			<tr>
+				<th scope="col">Client</th>
+				<th scope="col">Fichier</th>
+				<th scope="col">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for publicity in publicities %}
+				<tr>
+					<td class="align-middle">{{ publicity.prospect ? publicity.prospect.name : 'Non renseigné' }}</td>
+					<td class="align-middle">
+						<a href="/files/{{ publicity.filename }}" target='_blank' rel="noopener noreferrer">{{ publicity.filename }}</a>
+					</td>
+					<td class="align-middle">
+						<a href="{{ path('publicity_show', {'id': publicity.id}) }}">
+							<i class="far fa-eye"></i>
+							Voir</a><br>
+						<a href="{{ path('publicity_edit', {'id': publicity.id}) }}">
+							<i class="far fa-edit"></i>
+							Editer</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 {% endblock %}

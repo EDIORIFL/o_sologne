@@ -46,6 +46,13 @@ class CommandType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
+            ->add('reference', TextType::class, [
+                'label' => 'Référence',
+                'label_attr' => [],
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
             ->add('turnover', TextType::class, [
                 'label' => 'Turn over',
                 'label_attr' => [],

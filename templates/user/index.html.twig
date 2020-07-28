@@ -6,54 +6,41 @@
 {% block body %}
 	<h1>Liste des utilisateurs</h1>
 	<a href="{{ path('user_new') }}" class="btn btn-primary my-2">Ajouter</a>
-
-	<div class="row">
-		<div class="col-12">
-			<ul class="list-group">
-				{% for user in users %}
-					<li class="list-group-item prospects-item">
-						<div class="row prospects-item-row">
-							<div class="col-3">
-								<strong>{{ user.name }}</strong>
-							</div>
-							<div class="col-2">
-								<p>{{ user.profil }}</p>
-							</div>
-							<div class="col-3">
-								<p>
-									{% for role in user.roles %}
-										{% if role == "ROLE_USER" %}
-											Utilisateur
-										{% elseif role == "ROLE_SUPERADMIN" %}
-											Super Administrateur
-										{% elseif role == "ROLE_ADMIN" %}
-											Administrateur
-										{% endif %}
-									{% endfor %}
-								</p>
-							</div>
-							<div class="col-4">
-								<ul class="list-unstyled d-flex flex-row">
-									<li class="prospects-item-link">
-										<a href="{{ path('user_show', {id:user.id}) }}">
-											<i class="far fa-eye"></i>
-											Voir</a>
-									</li>
-									<li class="prospects-item-link">
-										<a href="{{ path('user_edit', {id:user.id}) }}">
-											<i class="far fa-edit"></i>
-											Editer</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</li>
-				{% else %}
-					<p>
-						Aucun utilisateur n'a été trouvé.
-					</p>
-				{% endfor %}
-			</ul>
-		</div>
-	</div>
+	<table class="table table-bordered table-hover">
+		<thead>
+			<tr>
+				<th scope="col">Nom</th>
+				<th scope="col">Profil</th>
+				<th scope="col">Roles</th>
+				<th scope="col">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for user in users %}
+				<tr>
+					<td class="align-middle">{{ user.name }}</td>
+					<td class="align-middle">{{ user.profil }}</td>
+					<td class="align-middle">
+						{% for role in user.roles %}
+							{% if role == "ROLE_USER" %}
+								Utilisateur
+							{% elseif role == "ROLE_SUPERADMIN" %}
+								Super Administrateur
+							{% elseif role == "ROLE_ADMIN" %}
+								Administrateur
+							{% endif %}
+						{% endfor %}
+					</td>
+					<td class="align-middle">
+						<a href="{{ path('user_show', {'id': user.id}) }}">
+							<i class="far fa-eye"></i>
+							Voir</a><br>
+						<a href="{{ path('user_edit', {'id': user.id}) }}">
+							<i class="far fa-edit"></i>
+							Editer</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 {% endblock %}

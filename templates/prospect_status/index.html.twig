@@ -6,40 +6,27 @@
 {% block body %}
 	<h1>Statuts de prospects</h1>
 	<a href="{{ path('prospect_status_new') }}" class="btn btn-primary">Ajouter un statut</a>
-	<div class="row">
-		<div class="col-12">
-			<ul class="list-group">
-				{% for status in prospect_statuses %}
-					<li class="list-group-item prospects-item">
-						<div class="row prospects-item-row">
-							<div class="col-7">
-								<strong>{{ status.label }}</strong>
-							</div>
-							<div class="col-5">
-								<ul class="list-unstyled d-flex flex-row">
-									<li class="prospects-item-link">
-										<a href="{{ path('prospect_status_show', {id:status.id}) }}">
-											<i class="far fa-eye"></i>
-											Voir</a>
-									</li>
-									<li class="prospects-item-link">
-										<a href="{{ path('prospect_status_edit', {id:status.id}) }}">
-											<i class="far fa-edit"></i>
-											Editer</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</li>
-				{% else %}
-					<p>
-						Aucun statut de prospect n'a été trouvé.
-					</p>
-				{% endfor %}
-			</ul>
-			{% if prospect_statuses is not null %}
-			{{ knp_pagination_render(prospect_statuses) }}
-			{% endif %}
-		</div>
-	</div>
+	<table class="table table-bordered table-hover">
+		<thead>
+			<tr>
+				<th scope="col">Nom</th>
+				<th scope="col">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for status in prospect_statuses %}
+				<tr>
+					<td class="align-middle">{{ status.label }}</td>
+					<td class="align-middle">
+						<a href="{{ path('prospect_status_show', {'id': status.id}) }}">
+							<i class="far fa-eye"></i>
+							Voir</a><br>
+						<a href="{{ path('prospect_status_edit', {'id': status.id}) }}">
+							<i class="far fa-edit"></i>
+							Editer</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 {% endblock %}

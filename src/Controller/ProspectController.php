@@ -12,7 +12,6 @@ use App\Repository\ProspectRepository;
 use App\Repository\ProspectStatusRepository;
 use App\Repository\PublicityRepository;
 use App\Repository\UserRepository;
-use App\Service\Gulliver;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,6 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * @Route("/prospect")
@@ -27,6 +27,12 @@ use Knp\Component\Pager\PaginatorInterface;
  */
 class ProspectController extends AbstractController
 {
+    private $session;
+
+    public function __construct(SessionInterface $session)
+    {
+        $this->session = $session;
+    }
     /**
      * @Route("/", name="prospect_index")
      */
@@ -40,18 +46,15 @@ class ProspectController extends AbstractController
         $form = $this->createForm(SearchType::class);
         $datas = [];
         $form->handleRequest($request);
-        $filters = [];
+        $filters = $this->session->get('last-search');
+        $defaultPage = 1;
         if ($form->isSubmitted() && $form->isValid()) {
             $filters = $form->getData();
+            $this->session->set('last-search', $filters);
             $datas = $prospectRepository->findBySearchForm($filters);
-            // if ($filters['support']) {
-            //     $commands = $commandRepository->findBySupport($filters['support']);
-            //     foreach ($commands as $command) {
-            //         $datas[] = $command->getIdprospect();
-            //         $datas = array_unique($datas);
-            //     }
-            // }
-            // dd($datas);
+        } 
+        elseif ($filters !== null) {
+            $datas = $prospectRepository->findBySearchForm($filters);
         }
         else {
             $datas = $prospectRepository->findAll();
@@ -63,7 +66,7 @@ class ProspectController extends AbstractController
                 ->setActivityArea($activityArea ? $activityArea : null)
                 ->setProspectStatus($prospectStatus);
         }
-         
+
         if (!isset($filters['display'])) {
             $filters['display'] = 20;
         }
@@ -115,11 +118,13 @@ class ProspectController extends AbstractController
         UserRepository $userRepository,
         ActivityAreaRepository $activityAreaRepository,
         ProspectStatusRepository $prospectStatusRepository,
-        PublicityRepository $publicityRepository
+        PublicityRepository $publicityRepository,
+        CommandRepository $commandRepository
     ): Response {
         $user = $userRepository->findOneBy(['id' => $prospect->getIdaccount()]);
         $activityArea = $activityAreaRepository->findOneBy(['id' => $prospect->getIdactivityarea()]);
         $prospectStatus = $prospectStatusRepository->findOneBy(['id' => $prospect->getIdprospectstatus()]);
+        $commands = $commandRepository->findBy(['idprospect' => $prospect->getId()]);
         $publicities = $publicityRepository->findBy(['idprospect' => $prospect->getId()]);
         $prospect
             ->setUser($user ? $user : null)
@@ -127,6 +132,7 @@ class ProspectController extends AbstractController
             ->setProspectStatus($prospectStatus);
         return $this->render('prospect/show.html.twig', [
             'prospect' => $prospect,
+            'commands' => $commands,
             'publicities' => $publicities
         ]);
     }

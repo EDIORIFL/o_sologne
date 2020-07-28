@@ -24,16 +24,14 @@ class Command
     /**
      * @var int
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Prospect", inversedBy="commands")
-     * @ORM\JoinColumn(name="idprospect", nullable=false)
+     * @ORM\Column(name="idprospect", type="integer", nullable=false)
      */
     private $idprospect;
 
     /**
      * @var int
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Support", inversedBy="commands")
-     * @ORM\JoinColumn(name="idsupport", nullable=false)
+     * @ORM\Column(name="idsupport", type="integer", nullable=false, options={"default"="1"})
      */
     private $idsupport = '1';
 
@@ -43,6 +41,11 @@ class Command
      * @ORM\Column(name="datesigned", type="datetime", nullable=true)
      */
     private $datesigned;
+
+    /**
+     * @ORM\Column(name="reference", type="string", length=250, nullable=true)
+     */
+    private $reference;
 
     /**
      * @var float
@@ -162,6 +165,21 @@ class Command
     public function setDatesigned(?\DateTimeInterface $datesigned): self
     {
         $this->datesigned = $datesigned;
+
+        return $this;
+    }
+
+    public function getReference(): string
+    {
+        if ($this->reference !== null) {
+            $this->reference = 'Non renseigné';
+        }
+        return $this->reference;
+    }
+
+    public function setReference(?string $reference): self
+    {
+        $this->reference = $reference;
 
         return $this;
     }

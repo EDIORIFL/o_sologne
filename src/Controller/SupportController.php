@@ -31,7 +31,9 @@ class SupportController extends AbstractController
         $datas = $supportRepository->findAll();
         foreach ($datas as $support) {
             $supportType = $supportTypeRepository->findOneBy(['id' => $support->getIdsupporttype()]);
-            $support->setSupportType($supportType);
+            if ($supportType !== null) {
+                $support->setSupportType($supportType);
+            }
         }
         $supports = $paginator->paginate($datas, $request->query->getInt('page', 1), 20);
         return $this->render('support/index.html.twig', [
