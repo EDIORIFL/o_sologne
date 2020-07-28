@@ -21,6 +21,7 @@ class SearchType extends AbstractType
     {
         $builder
             ->add('postal_code', TextType::class, [
+                'label' => 'Zone géographique',
                 'label_attr' => [
                     'class' => 'position-absolute'
                 ],
@@ -34,6 +35,7 @@ class SearchType extends AbstractType
                 'class' => ActivityArea::class,
                 'choice_label' => 'label',
                 'choice_value' => 'id',
+                'label' => 'Secteur d\'activité',
                 'label_attr' => [
                     'class' => 'position-absolute'
                 ],
@@ -44,6 +46,7 @@ class SearchType extends AbstractType
                 'required' => false,
             ])
             ->add('date_created', DateType::class, [
+                'label' => 'Date de création',
                 'label_attr' => [
                     'class' => 'position-absolute'
                 ],
@@ -58,6 +61,7 @@ class SearchType extends AbstractType
                 'class' => ProspectStatus::class,
                 'choice_label' => 'label',
                 'choice_value' => 'id',
+                'label' => 'Statut',
                 'label_attr' => [
                     'class' => 'position-absolute'
                 ],
@@ -71,6 +75,7 @@ class SearchType extends AbstractType
                 'class' => Support::class,
                 'choice_label' => 'label',
                 'choice_value' => 'id',
+                'label' => 'Support',
                 'label_attr' => [
                     'class' => 'position-absolute'
                 ],
@@ -81,7 +86,7 @@ class SearchType extends AbstractType
                 'required' => false,
             ])
             ->add('display', ChoiceType::class, [
-                'label' => 'Nombre de prospects par page',
+                'label' => 'Par page',
                 'label_attr' => [
                     'class' => 'position-absolute'
                 ],

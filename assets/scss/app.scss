@@ -45,3 +45,12 @@ body {
         border-bottom: lime solid 1px;
     }
 }
+
+label.position-absolute {
+    top: -1.25rem;
+    font-size: .8rem;
+    &.display {
+        top: 0;
+        left: -1.5rem;
+    }
+}

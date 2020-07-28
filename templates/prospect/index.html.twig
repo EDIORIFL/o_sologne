@@ -10,28 +10,31 @@
 	<div class="row">
 		<div class="col-12">
 			{{ form_start(form) }}
-			<div class="search-form row mt-3 mb-1">
-				<div class="col-2">
+			<div class="search-form row my-4">
+				<div class="col-3 position-relative">
 					{{ form_row(form.postal_code) }}
 				</div>
-				<div class="col-2">
+				<div class="col-3 position-relative">
 					{{ form_row(form.activity_area) }}
 				</div>
-				<div class="col-2">
+				<div class="col-2 position-relative">
 					{{ form_row(form.status) }}
 				</div>
-				<div class="col-2">
+				<div class="col-2 position-relative">
 					{{ form_row(form.support) }}
 				</div>
-				<div class="col-2">
+				<div class="col-2 position-relative">
 					{{ form_row(form.date_created) }}
 				</div>
-				<div class="col-12 d-flex justify-content-center">
-					{{ form_row(form.display) }}
-					<button class="btn btn-primary d-inline-block mt-2 mr-1">
+				<div class="col-12 d-flex justify-content-center mt-4 ">
+					<div class="position-relative mx-1">
+						{{ form_label(form.display) }}
+						{{ form_widget(form.display) }}
+					</div>
+					<button class="btn btn-primary d-inline-block mx-1">
 						<i class="fas fa-search"></i>
 						{{ button_label|default('Rechercher') }}</button>
-					<button id="reset-form" class="btn btn-primary d-inline-block mt-2">
+					<button id="reset-form" class="btn btn-primary d-inline-block mx-1">
 						<i class="fas fa-undo"></i>
 						Réinitialiser les filtres</button>
 				</div>
@@ -92,50 +95,86 @@
 
 	<script>
 		function prospectsIndex() {
-var activitySelect = document.getElementById('search_activity_area');
-var prospectName = document.getElementById('search_name');
-var postalCode = document.getElementById('search_postal_code');
-var prospectSiret = document.getElementById('search_siret');
-var prospectContact = document.getElementById('search_contact');
-var resetFiltersButton = document.getElementById('reset-form');
+			var activitySelect = document.getElementById('search_activity_area');
+			var postalCode = document.getElementById('search_postal_code');
+			var statusSelect = document.getElementById('search_status');
+			var supportSelect = document.getElementById('search_support');
+			var dateCreatedPicker = document.getElementById('search_date_created');
+			var resetFiltersButton = document.getElementById('reset-form');
 
-/**
+			/**
             @desc Custom default option for activities select
             */
-function allActivitiesSelectLabel() {
-if (! activitySelect) {
-return;
-}
+			function allActivitiesSelectLabel() {
+				if (! activitySelect) {
+					return;
+				}
 
-var defaultOption = activitySelect.querySelector('option[value=""]');
+				var defaultOption = activitySelect.querySelector('option[value=""]');
 
-if (! defaultOption) {
-return;
-}
+				if (! defaultOption) {
+					return;
+				}
 
-defaultOption.innerText = 'Tous les secteurs d\'activité';
-}
+				defaultOption.innerText = 'Tous les secteurs d\'activité';
+			}
 
-/**
+			/**
+            @desc Custom default option for activities select
+            */
+			function allStatusesSelectLabel() {
+				if (! statusSelect) {
+					return;
+				}
+
+				var defaultOption = statusSelect.querySelector('option[value=""]');
+
+				if (! defaultOption) {
+					return;
+				}
+
+				defaultOption.innerText = 'Tous les statuts';
+			}
+
+			/**
+            @desc Custom default option for activities select
+            */
+			function allSupportsSelectLabel() {
+				if (! supportSelect) {
+					return;
+				}
+
+				var defaultOption = supportSelect.querySelector('option[value=""]');
+
+				if (! defaultOption) {
+					return;
+				}
+
+				defaultOption.innerText = 'Tous les supports';
+			}
+
+			/**
             @desc Reset all filters
             */
-function resetFilters(e) {
-e.preventDefault();
-activitySelect.value = '';
-prospectName.value = '';
-postalCode.value = '';
-prospectSiret.value = '';
-prospectContact.value = '';
-}
+			function resetFilters(e) {
+				e.preventDefault();
+				activitySelect.value = '';
+				postalCode.value = '';
+				statusSelect.value = '';
+				supportSelect.value = '';
+				dateCreatedPicker.value = '';
+			}
 
-allActivitiesSelectLabel();
+			allActivitiesSelectLabel();
+			allStatusesSelectLabel();
+			allSupportsSelectLabel();
 
-if (! resetFiltersButton) {
-return;
-}
-resetFiltersButton.addEventListener('click', resetFilters);
-}
+			if (! resetFiltersButton) {
+				return;
+			}
+			resetFiltersButton.addEventListener('click', resetFilters);
+		}
 
-prospectsIndex();
+		prospectsIndex();
 	</script>
 {% endblock %}
