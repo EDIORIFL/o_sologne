@@ -12,7 +12,7 @@ use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class CreateUserCommand extends Command
+class CreateUrgentUserCommand extends Command
 {
     protected static $defaultName = 'app:create-user';
     private $container;
