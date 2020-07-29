@@ -13,24 +13,24 @@
 	<div class="prospect-top">
 		<div class="prospect-top-left">
 			<div class="prospect-top-left-society">
-				Nom de la société :<br>
+				<span class="prospect-top-part">Nom de la société :</span><br>
 				{{ prospect.name }}<br>
-				Siret :<br>
+				<span class="prospect-top-part">Siret :</span><br>
 				{{ prospect.siret }}<br>
-				Nom du responsable :<br>
+				<span class="prospect-top-part">Nom du responsable :</span><br>
 				{{ prospect.manager }}
 			</div>
 			<div class="prospect-top-left-address">
-				Adresse :<br>
+				<span class="prospect-top-part">Adresse :</span><br>
 				{{ prospect.address }}
 			</div>
 		</div>
 		<div class="prospect-top-right">
-			Date de création :<br>
+			<span class="prospect-top-part">Date de création :</span><br>
 			{{ prospect.datecreated|date('d/m/Y') }}<br>
-			Tél :<br>
+			<span class="prospect-top-part">Tél :</span><br>
 			{{ prospect.telephone }}<br>
-			Mail :<br>
+			<span class="prospect-top-part">Mail :</span><br>
 			{{ prospect.email ? prospect.email : 'Non défini' }}
 		</div>
 	</div>
