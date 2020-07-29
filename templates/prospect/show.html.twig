@@ -9,6 +9,7 @@
 	<h1>Fiche client</h1>
 	<a href="{{ path('prospect_index') }}" class="btn btn-primary d-inline-block"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
 	<a href="{{ path('prospect_edit', {'id': prospect.id}) }}" class="btn btn-primary d-inline-block"><i class="fas fa-edit"></i> Editer</a>
+	{% include "prospect/_delete_form.html.twig" %}
 	<div class="prospect-top">
 		<div class="prospect-top-left">
 			<div class="prospect-top-left-society">
