@@ -21,6 +21,7 @@ final class Version20200728133411 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE command CHANGE idsupport idsupport INT DEFAULT 1 NOT NULL');
+        $this->addSql('ALTER TABLE command ADD reference VARCHAR(250)');
     }
 
     public function down(Schema $schema) : void
