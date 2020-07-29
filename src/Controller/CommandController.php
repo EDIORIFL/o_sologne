@@ -67,8 +67,8 @@ class CommandController extends AbstractController
             $prospect = $command->getProspect();
             $support = $command->getSupport();
             $command
-                ->setIdprospect($prospect->getId())
-                ->setIdsupport($support->getId())
+                ->setIdprospect($prospect)
+                ->setIdsupport($support)
                 ->setCreatedat(new DateTime('now'))
                 ->setUpdatedat(new DateTime('now'));
             $entityManager->persist($command);
@@ -119,8 +119,8 @@ class CommandController extends AbstractController
             $prospect = $command->getProspect();
             $support = $command->getSupport();
             $command
-                ->setIdprospect($prospect->getId())
-                ->setIdsupport($support->getId())
+                ->setIdprospect($prospect)
+                ->setIdsupport($support)
                 ->setUpdatedat(new DateTime('now'));
             $this->getDoctrine()->getManager()->flush();
 
