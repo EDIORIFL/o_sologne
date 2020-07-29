@@ -25,7 +25,7 @@ class Command
      * @var int
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Prospect", inversedBy="commands")
-     * @ORM\JoinColumn(name="idprospect", nullable=false)
+    //  * @ORM\JoinColumn(name="idprospect", nullable=false)
      */
     private $idprospect;
 
@@ -33,7 +33,7 @@ class Command
      * @var int
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Support", inversedBy="commands")
-     * @ORM\JoinColumn(name="idsupport", nullable=false)
+    //  * @ORM\JoinColumn(name="idsupport", nullable=false)
      */
     private $idsupport = '1';
 
