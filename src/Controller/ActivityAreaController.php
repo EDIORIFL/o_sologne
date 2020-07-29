@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\ActivityArea;
 use App\Form\ActivityAreaType;
 use App\Repository\ActivityAreaRepository;
+use DateTime;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,6 +45,9 @@ class ActivityAreaController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $activityArea
+                ->setCreatedat(new DateTime('now'))
+                ->setUpdatedat(new DateTime('now'));
             $entityManager->persist($activityArea);
             $entityManager->flush();
 
@@ -75,6 +79,7 @@ class ActivityAreaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $activityArea->setUpdatedat(new DateTime('now'));
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('activity_area_index');
