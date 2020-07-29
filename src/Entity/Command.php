@@ -87,7 +87,7 @@ class Command
     /**
      * @var int
      *
-     * @ORM\Column(name="insertsize", type="integer", nullable=false, options={"default"="1"})
+     * @ORM\Column(name="insertsize", type="string", nullable=false, options={"default"="1"})
      */
     private $insertsize = '1';
 
@@ -246,12 +246,12 @@ class Command
         return $this;
     }
 
-    public function getInsertsize(): ?int
+    public function getInsertsize(): ?string
     {
         return $this->insertsize;
     }
 
-    public function setInsertsize(int $insertsize): self
+    public function setInsertsize(string $insertsize): self
     {
         $this->insertsize = $insertsize;
 
