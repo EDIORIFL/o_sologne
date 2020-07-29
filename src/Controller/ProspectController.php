@@ -76,8 +76,9 @@ class ProspectController extends AbstractController
         if (!isset($filters['display'])) {
             $filters['display'] = 20;
         }
-        if ($page === null) {
+        if ($page === null && $lastPage === null) {
             $page = 1;
+            $lastPage = 1;
         }
         $prospects = $paginator->paginate($datas,$page ? $page : $lastPage, $filters['display']);
         return $this->render('prospect/index.html.twig', [
