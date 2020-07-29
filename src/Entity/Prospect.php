@@ -161,7 +161,7 @@ class Prospect
     private $prospectStatus;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Command", mappedBy="idsupport")
+     * @ORM\OneToMany(targetEntity="App\Entity\Command", mappedBy="idprospect")
      */
     private $commands;
 
@@ -430,6 +430,18 @@ class Prospect
     public function setProspectStatus(?ProspectStatus $prospectStatus)
     {
         $this->prospectStatus = $prospectStatus;
+
+        return $this;
+    }
+
+    public function getCommands()
+    {
+        return $this->commands;
+    }
+
+    public function setCommands( $commands)
+    {
+        $this->commands = $commands;
 
         return $this;
     }

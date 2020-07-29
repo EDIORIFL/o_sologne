@@ -75,6 +75,11 @@ class Support
      */
     private $updatedat;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Command", mappedBy="idsupport")
+     */
+    private $commands;
+
     public function getId(): ?int
     {
         return $this->id;
