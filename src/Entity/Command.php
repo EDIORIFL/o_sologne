@@ -24,14 +24,16 @@ class Command
     /**
      * @var int
      *
-     * @ORM\Column(name="idprospect", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Prospect", inversedBy="commands")
+     * @ORM\JoinColumn(name="idprospect", nullable=false)
      */
     private $idprospect;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="idsupport", type="integer", nullable=false, options={"default"="1"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Support", inversedBy="commands")
+     * @ORM\JoinColumn(name="idsupport", nullable=false)
      */
     private $idsupport = '1';
 
@@ -169,7 +171,7 @@ class Command
         return $this;
     }
 
-    public function getReference(): string
+    public function getReference(): ?string
     {
         if ($this->reference !== null) {
             $this->reference = 'Non renseigné';

@@ -47,8 +47,14 @@ class ProspectController extends AbstractController
         $datas = [];
         $form->handleRequest($request);
         $filters = $this->session->get('last-search');
-        $defaultPage = 1;
+        $page = $request->query->getInt('page');
+        $lastPage = $this->session->get('last-page');
+        if ($page > 1) {
+            $lastPage = $page;
+            $this->session->set('last-page', $lastPage);
+        }
         if ($form->isSubmitted() && $form->isValid()) {
+            // $lastPage = 1;
             $filters = $form->getData();
             $this->session->set('last-search', $filters);
             $datas = $prospectRepository->findBySearchForm($filters);
@@ -70,7 +76,7 @@ class ProspectController extends AbstractController
         if (!isset($filters['display'])) {
             $filters['display'] = 20;
         }
-        $prospects = $paginator->paginate($datas, $request->query->getInt('page', 1), $filters['display']);
+        $prospects = $paginator->paginate($datas,$page ? $page : $lastPage, $filters['display']);
         return $this->render('prospect/index.html.twig', [
             'prospects' => $prospects,
             'form' => $form->createView()

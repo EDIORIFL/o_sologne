@@ -7,7 +7,8 @@
 
 {% block body %}
 	<h1>Fiche client</h1>
-	<a href="{{ path('prospect_index') }}" class="btn btn-primary">Retour à la liste</a>
+	<a href="{{ path('prospect_index') }}" class="btn btn-primary d-inline-block"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
+	<a href="{{ path('prospect_edit', {'id': prospect.id}) }}" class="btn btn-primary d-inline-block"><i class="fas fa-edit"></i> Editer</a>
 	<div class="prospect-top">
 		<div class="prospect-top-left">
 			<div class="prospect-top-left-society">
@@ -32,6 +33,7 @@
 			{{ prospect.email ? prospect.email : 'Non défini' }}
 		</div>
 	</div>
+	{% if commands is not empty %}
 	<div class="prospect-commands">
 		<table class="table table-bordered table-hover">
 			<thead>
@@ -54,6 +56,7 @@
 			</tbody>
 		</table>
 	</div>
+	{% endif %}
 	<div class="prospect-comments">
 		Commentaires :<br>
 		{{ prospect.comment }}
