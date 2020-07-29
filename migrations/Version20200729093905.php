@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200728133411 extends AbstractMigration
+final class Version20200729093905 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -20,12 +20,13 @@ final class Version20200728133411 extends AbstractMigration
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE command CHANGE idsupport idsupport INT DEFAULT 1 NOT NULL');
+    
+        $this->addSql('ALTER TABLE command ADD reference VARCHAR(250)');
     }
 
     public function down(Schema $schema) : void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE command CHANGE idsupport idsupport INT NOT NULL');
+        $this->addSql('ALTER TABLE command DROP reference');
     }
 }
