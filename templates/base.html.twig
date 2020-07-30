@@ -19,7 +19,7 @@
 		{% endfor %}
 		<div class="{% if app.request.get('_route') != 'app_login' %}wrapper{% endif %}">
 			{% if app.request.get('_route') != 'app_login' %}
-				{% include "_navbar.html.twig" %}
+				{{ render(controller('App\\Controller\\NavbarController::renderNavbar')) }}
 			{% endif %}
 			<div class="content w-100"> {% block body %}{% endblock %}
 				</div>

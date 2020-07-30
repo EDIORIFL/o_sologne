@@ -103,6 +103,15 @@ class ProspectRepository extends ServiceEntityRepository
         return $results;
     }
 
+    public function countAllProspects()
+    {
+        $qb = $this->createQueryBuilder('p');
+        return $qb
+                ->select('count(p.id)')
+                ->getQuery()
+                ->getSingleScalarResult();
+    }
+
     // /**
     //  * @return Prospect[] Returns an array of Prospect objects
     //  */
