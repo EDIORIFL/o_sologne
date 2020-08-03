@@ -65,7 +65,8 @@ class CommandType extends AbstractType
                 'label_attr' => [],
                 'attr' => [
                     'class' => 'form-control'
-                ]
+                ],
+                'required' => false,
             ])
             ->add('paymentmode', TextType::class, [
                 'label' => 'Mode de paiement',
