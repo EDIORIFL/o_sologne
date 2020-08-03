@@ -9,10 +9,12 @@
 		<div class="col-8">
 			<p class="prospect-infos">
 			{% if command.support is not null %}
-				Support :
+				Type de support :
 				{{ command.support.supporttype.label }}<br>
-				Date :
+				Support :
 				{{ command.support.label }}<br>
+				Référence : 
+				{{ command.reference }}
 			{% endif %}
 				RIB :
 				{{ command.rib }}<br>
