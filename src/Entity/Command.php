@@ -173,7 +173,7 @@ class Command
 
     public function getReference(): ?string
     {
-        if ($this->reference !== null) {
+        if ($this->reference === null) {
             $this->reference = 'Non renseigné';
         }
         return $this->reference;

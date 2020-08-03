@@ -123,7 +123,7 @@ class CommandController extends AbstractController
                 ->setIdsupport($support)
                 ->setUpdatedat(new DateTime('now'));
             $this->getDoctrine()->getManager()->flush();
-            \dd($command);
+            // \dd($command);
 
             return $this->redirectToRoute('command_index');
         }
