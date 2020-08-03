@@ -21,24 +21,15 @@
 				</td>
 			</tr>
 			<tr>
-				<th>Filename</th>
+				<th>Ficher</th>
 				<td>{{ publicity.filename }}</td>
+			<tr>
+				<th>Créé le</th>
+				<td>{{ publicity.createdat ? publicity.createdat|date('d/m/Y') : '' }}</td>
 			</tr>
 			<tr>
-				<th>Isactive</th>
-				<td>{{ publicity.isactive ? 'Yes' : 'No' }}</td>
-			</tr>
-			<tr>
-				<th>Iseditable</th>
-				<td>{{ publicity.iseditable ? 'Yes' : 'No' }}</td>
-			</tr>
-			<tr>
-				<th>Createdat</th>
-				<td>{{ publicity.createdat ? publicity.createdat|date('Y-m-d H:i:s') : '' }}</td>
-			</tr>
-			<tr>
-				<th>Updatedat</th>
-				<td>{{ publicity.updatedat ? publicity.updatedat|date('Y-m-d H:i:s') : '' }}</td>
+				<th>Dernière modification</th>
+				<td>{{ publicity.updatedat ? publicity.updatedat|date('d/m/Y') : '' }}</td>
 			</tr>
 		</tbody>
 	</table>
