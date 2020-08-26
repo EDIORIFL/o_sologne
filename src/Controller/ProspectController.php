@@ -54,7 +54,8 @@ class ProspectController extends AbstractController
             $this->session->set('last-page', $lastPage);
         }
         if ($form->isSubmitted() && $form->isValid()) {
-            // $lastPage = 1;
+            $lastPage = 1;
+            $this->session->set('last-page', $lastPage);
             $filters = $form->getData();
             $this->session->set('last-search', $filters);
             $datas = $prospectRepository->findBySearchForm($filters);
