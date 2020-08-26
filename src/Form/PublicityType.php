@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Form\ProspectSelectorType;
+use App\Repository\ProspectRepository;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormEvents;
@@ -21,6 +22,10 @@ class PublicityType extends AbstractType
         $builder
             ->add('prospect', ProspectSelectorType::class, [
                 'class' => Prospect::class,
+                'query_builder' => function (ProspectRepository $er) {
+                    return $er->createQueryBuilder('a')
+                        ->orderBy('a.name', 'ASC');
+                },
                 'choice_label' => 'name',
                 'choice_value' => 'id',
                 'label' => 'Prospect',

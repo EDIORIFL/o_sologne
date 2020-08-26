@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Support;
 use App\Entity\SupportType;
+use App\Repository\SupportTypeRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -18,6 +19,10 @@ class SupportFormType extends AbstractType
         $builder
             ->add('supporttype', SupportTypeSelectorType::class, [
                 'class' => SupportType::class,
+                'query_builder' => function (SupportTypeRepository $er) {
+                    return $er->createQueryBuilder('a')
+                        ->orderBy('a.label', 'ASC');
+                },
                 'choice_label' => 'label',
                 'choice_value' => 'id',
                 'label' => 'Type de support',

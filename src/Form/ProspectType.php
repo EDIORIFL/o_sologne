@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Entity\ActivityArea;
 use App\Entity\Prospect;
 use App\Entity\ProspectStatus;
+use App\Repository\ActivityAreaRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -13,6 +14,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use App\Form\ActivityAreaSelectorType;
+use App\Repository\ProspectStatusRepository;
+use App\Repository\UserRepository;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -23,6 +26,10 @@ class ProspectType extends AbstractType
         $builder
             ->add('user', UserSelectorType::class, [
                 'class' => User::class,
+                'query_builder' => function (UserRepository $er) {
+                    return $er->createQueryBuilder('a')
+                        ->orderBy('a.name', 'ASC');
+                },
                 'choice_label' => 'name',
                 'choice_value' => 'id',
                 'label' => 'Responsable au sein de l\'agence',
@@ -33,6 +40,10 @@ class ProspectType extends AbstractType
             ])
             ->add('activityarea', ActivityAreaSelectorType::class, [
                 'class' => ActivityArea::class,
+                'query_builder' => function (ActivityAreaRepository $er) {
+                    return $er->createQueryBuilder('a')
+                        ->orderBy('a.label', 'ASC');
+                },
                 'choice_label' => 'label',
                 'choice_value' => 'id',
                 'label' => 'Secteur d\'activité',
@@ -43,6 +54,10 @@ class ProspectType extends AbstractType
             ])
             ->add('prospectstatus', ProspectStatusSelectorType::class, [
                 'class' => ProspectStatus::class,
+                'query_builder' => function (ProspectStatusRepository $er) {
+                    return $er->createQueryBuilder('a')
+                        ->orderBy('a.label', 'ASC');
+                },
                 'choice_label' => 'label',
                 'choice_value' => 'id',
                 'label' => 'Statut',

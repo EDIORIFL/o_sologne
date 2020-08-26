@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Command;
 use App\Entity\Prospect;
 use App\Entity\Support;
+use App\Repository\ProspectRepository;
+use App\Repository\SupportRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -20,6 +22,10 @@ class CommandType extends AbstractType
         $builder
             ->add('prospect', ProspectSelectorType::class, [
                 'class' => Prospect::class,
+                'query_builder' => function (ProspectRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.name', 'ASC');
+                },
                 'choice_label' => 'name',
                 'choice_value' => 'id',
                 'label' => 'Prospect',
@@ -30,6 +36,10 @@ class CommandType extends AbstractType
             ])
             ->add('support', SupportSelectorType::class, [
                 'class' => Support::class,
+                'query_builder' => function (SupportRepository $er) {
+                    return $er->createQueryBuilder('s')
+                        ->orderBy('s.label', 'ASC');
+                },
                 'choice_label' => 'label',
                 'choice_value' => 'id',
                 'label' => 'Support',

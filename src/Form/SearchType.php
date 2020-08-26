@@ -8,6 +8,9 @@ use App\Entity\Support;
 use App\Form\ActivityAreaSelectorType;
 use App\Form\SupportSelectorType;
 use App\Form\ProspectStatusSelectorType;
+use App\Repository\ActivityAreaRepository;
+use App\Repository\ProspectStatusRepository;
+use App\Repository\SupportRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -33,6 +36,10 @@ class SearchType extends AbstractType
             ])
             ->add('activity_area', ActivityAreaSelectorType::class, [
                 'class' => ActivityArea::class,
+                'query_builder' => function (ActivityAreaRepository $er) {
+                    return $er->createQueryBuilder('a')
+                        ->orderBy('a.label', 'ASC');
+                },
                 'choice_label' => 'label',
                 'choice_value' => 'id',
                 'label' => 'Secteur d\'activité',
@@ -59,6 +66,10 @@ class SearchType extends AbstractType
             ])
             ->add('status', ProspectStatusSelectorType::class, [
                 'class' => ProspectStatus::class,
+                'query_builder' => function (ProspectStatusRepository $er) {
+                    return $er->createQueryBuilder('a')
+                        ->orderBy('a.label', 'ASC');
+                },
                 'choice_label' => 'label',
                 'choice_value' => 'id',
                 'label' => 'Statut',
@@ -73,6 +84,10 @@ class SearchType extends AbstractType
             ])
             ->add('support', SupportSelectorType::class, [
                 'class' => Support::class,
+                'query_builder' => function (SupportRepository $er) {
+                    return $er->createQueryBuilder('a')
+                        ->orderBy('a.label', 'ASC');
+                },
                 'choice_label' => 'label',
                 'choice_value' => 'id',
                 'label' => 'Support',
