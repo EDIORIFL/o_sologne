@@ -58,6 +58,7 @@ class ProspectRepository extends ServiceEntityRepository
 
         $qb = $this->addFilterToSearch($options, $qb, 'p', 'datecreated', '>', 'date_created');
         $qb = $this->addFilterToSearch($options, $qb, 'p', 'address', 'LIKE', 'postal_code');
+        $qb = $this->addFilterToSearch($options, $qb, 'p', 'name', 'LIKE', 'name');
         $qb = $this->addFilterToSearch($options, $qb, 'p', 'idactivityarea', '=', 'activity_area');
         $qb = $this->addFilterToSearch($options, $qb, 'p', 'idprospectstatus', '=', 'status');
 

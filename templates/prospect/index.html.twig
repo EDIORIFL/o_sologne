@@ -11,10 +11,13 @@
 		<div class="col-12">
 			{{ form_start(form) }}
 			<div class="search-form row my-4">
-				<div class="col-3 position-relative">
+				<div class="col-2 position-relative">
+					{{ form_widget(form.name) }}
+				</div>
+				<div class="col-2 position-relative">
 					{{ form_row(form.postal_code) }}
 				</div>
-				<div class="col-3 position-relative">
+				<div class="col-2 position-relative">
 					{{ form_row(form.activity_area) }}
 				</div>
 				<div class="col-2 position-relative">
@@ -83,31 +86,32 @@
 
 	<script>
 		function prospectsIndex() {
-var activitySelect = document.getElementById('search_activity_area');
-var postalCode = document.getElementById('search_postal_code');
-var statusSelect = document.getElementById('search_status');
-var supportSelect = document.getElementById('search_support');
-var dateCreatedPicker = document.getElementById('search_date_created');
-var resetFiltersButton = document.getElementById('reset-form');
+		var name = document.getElementById('search_name');
+		var activitySelect = document.getElementById('search_activity_area');
+		var postalCode = document.getElementById('search_postal_code');
+		var statusSelect = document.getElementById('search_status');
+		var supportSelect = document.getElementById('search_support');
+		var dateCreatedPicker = document.getElementById('search_date_created');
+		var resetFiltersButton = document.getElementById('reset-form');
 
-/**
-            @desc Custom default option for activities select
-            */
-function allActivitiesSelectLabel() {
-if (! activitySelect) {
-return;
-}
+		/**
+		@desc Custom default option for activities select
+		*/
+		function allActivitiesSelectLabel() {
+			if (! activitySelect) {
+				return;
+			}
 
-var defaultOption = activitySelect.querySelector('option[value=""]');
+			var defaultOption = activitySelect.querySelector('option[value=""]');
 
-if (! defaultOption) {
-return;
-}
+			if (! defaultOption) {
+				return;
+			}
 
-defaultOption.innerText = 'Tous les secteurs d\'activité';
-}
+			defaultOption.innerText = 'Tous les secteurs d\'activité';
+		}
 
-/**
+			/**
             @desc Custom default option for activities select
             */
 function allStatusesSelectLabel() {
@@ -146,6 +150,7 @@ defaultOption.innerText = 'Tous les supports';
             */
 function resetFilters(e) {
 e.preventDefault();
+name.value = '';
 activitySelect.value = '';
 postalCode.value = '';
 statusSelect.value = '';

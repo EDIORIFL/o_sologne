@@ -23,6 +23,17 @@ class SearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('name', TextType::class, [
+                'label' => 'Nom de l\'entreprise',
+                'label_attr' => [
+                    'class' => 'position-absolute'
+                ],
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Nom de l\'entreprise'
+                ],
+                'required' => false,
+            ])
             ->add('postal_code', TextType::class, [
                 'label' => 'Zone géographique',
                 'label_attr' => [
